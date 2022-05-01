@@ -1,4 +1,6 @@
-﻿namespace Repository.Model;
+﻿using Repository.Serialiser;
+
+namespace Repository.Model;
 
 public class LongKeyModel<TValue> : DefaultKeyModel<long, TValue>
 {
@@ -9,5 +11,6 @@ public class LongKeyModel<TValue> : DefaultKeyModel<long, TValue>
         KeysEqual = (x, y) => x == y;
         IsKeyTuple = false;
         NewKey = () => ++KeyCounter;
+        KeySerialiser = new LongSerialiser();
     }
 }

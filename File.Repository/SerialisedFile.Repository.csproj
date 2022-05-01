@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Repository.Abstraction\Repository.Abstraction.csproj" />
+    <ProjectReference Include="..\Repository.Expressions\Repository.Expressions.csproj" />
+    <ProjectReference Include="..\Repository.Files\Repository.Files.csproj" />
+    <ProjectReference Include="..\Repository.Model\Repository.Model.csproj" />
+  </ItemGroup>
+
+</Project>

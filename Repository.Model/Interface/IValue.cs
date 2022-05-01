@@ -1,4 +1,6 @@
-﻿namespace Repository.Model;
+﻿using Repository.Serialiser;
+
+namespace Repository.Model;
 
 /// <summary>
 /// Operations that apply to a model
@@ -20,4 +22,8 @@ public interface IValue<TValue>
     /// The name to be used for the value type
     /// </summary>
     string ValueTypeName { get; }
+    /// <summary>
+    /// Defines how to serialiser a value
+    /// </summary>
+    ISerialiser<TValue> ValueSerialiser { get; }
 }

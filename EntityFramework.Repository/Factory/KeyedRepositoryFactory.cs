@@ -66,7 +66,7 @@ public class KeyedRepositoryFactory<TContext, TKey, TValue>
             var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
             var logger = loggerFactory.CreateLogger<EntityFrameworkKeyedRepository<TContext, TKey, TValue>>();
             var context = serviceProvider.GetRequiredService<TContext>();
-            var model = serviceProvider.GetRequiredService<IKeyedModel<TKey, TValue>>();
+            var model = serviceProvider.GetRequiredService<IKeyModel<TKey, TValue>>();
 
             return new EntityFrameworkKeyedRepository<TContext, TKey, TValue>(
                 configuration, logger, context, model);

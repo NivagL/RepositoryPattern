@@ -1,4 +1,6 @@
-﻿namespace Repository.Model;
+﻿using Repository.Serialiser;
+
+namespace Repository.Model;
 
 public class IntKeyModel<TValue> : DefaultKeyModel<int, TValue>
 {
@@ -9,5 +11,6 @@ public class IntKeyModel<TValue> : DefaultKeyModel<int, TValue>
         KeysEqual = (x, y) => x == y;
         IsKeyTuple = false;
         NewKey = () => ++KeyCounter;
+        KeySerialiser = new IntSerialiser();
     }
 }

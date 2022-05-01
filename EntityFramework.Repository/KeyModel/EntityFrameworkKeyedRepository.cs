@@ -15,11 +15,11 @@ public partial class EntityFrameworkKeyedRepository<TContext, TKey, TValue>
     where TValue : class
     where TKey : notnull
 {
-    private readonly IKeyedModel<TKey, TValue> KeyedModel;
+    private readonly IKeyModel<TKey, TValue> KeyedModel;
 
     public EntityFrameworkKeyedRepository(IConfiguration configuration, 
         ILogger<EntityFrameworkRepository> logger,
-        TContext context, IKeyedModel<TKey, TValue> model,
+        TContext context, IKeyModel<TKey, TValue> model,
         bool trackQueries = false)
         : base(configuration, logger, context, 
             model as IValueModel<TValue>)

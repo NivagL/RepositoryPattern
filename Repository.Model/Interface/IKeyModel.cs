@@ -6,7 +6,7 @@
 /// </summary>
 /// <typeparam name="TKey"></typeparam>
 /// <typeparam name="TValue"></typeparam>
-public interface IKeyedModel<TKey, TValue> 
+public interface IKeyModel<TKey, TValue> 
     : IKey<TKey, TValue>
     , IValue<TValue>
     , IValueAssign<TValue>

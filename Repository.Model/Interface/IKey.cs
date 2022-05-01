@@ -1,4 +1,6 @@
-﻿namespace Repository.Model;
+﻿using Repository.Serialiser;
+
+namespace Repository.Model;
 
 /// <summary>
 /// Given a model class, these lamdas define the operations available for the models key
@@ -32,4 +34,8 @@ public interface IKey<TKey, TValue>
     /// The name to be used for the key type
     /// </summary>
     string KeyTypeName { get; }
+    /// <summary>
+    /// Defines how to serialiser a key
+    /// </summary>
+    ISerialiser<TKey> KeySerialiser { get; }
 }

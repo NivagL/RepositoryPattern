@@ -1,10 +1,11 @@
-﻿using Repository.Utils;
+﻿using Repository.Serialiser;
+using Repository.Utils;
 
 namespace Repository.Model;
 
 public class DefaultKeyModel<TKey, TValue> 
     : DefaultValueModel<TValue>
-    , IKeyedModel<TKey, TValue>
+    , IKeyModel<TKey, TValue>
 {
     public Func<TKey> NewKey { get; set; }
     public bool IsKeyTuple { get; set; }
@@ -12,6 +13,7 @@ public class DefaultKeyModel<TKey, TValue>
     public Func<TValue, TKey> GetKey { get; set; }
     public Action<TValue, TKey> SetKey { get; set; }
     public Func<TKey, TKey, bool> KeysEqual { get; set; }
+    public ISerialiser<TKey> KeySerialiser { get; set; }
 
     public DefaultKeyModel()
     {
@@ -19,6 +21,7 @@ public class DefaultKeyModel<TKey, TValue>
         NewKey = CreateImpl<TKey>;
         IsKeyTuple = TupleUtils.IsTuple(typeof(TKey));
         KeysEqual = KeysEqualImpl;
+        KeySerialiser = new DefaultSerialiser<TKey>();
     }
 
     public bool KeysEqualImpl(TKey x, TKey y)

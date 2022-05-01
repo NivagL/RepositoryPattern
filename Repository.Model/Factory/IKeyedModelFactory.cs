@@ -3,5 +3,5 @@
 public interface IKeyedModelFactory<TKey, TValue> 
     : IValueModelFactory<TValue>
 {
-    Func<IServiceProvider, IKeyedModel<TKey, TValue>> KeyedModel { get; set; }
+    Func<IServiceProvider, IKeyModel<TKey, TValue>> KeyedModel { get; set; }
 }

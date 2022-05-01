@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Repository.Abstraction;
+using System;
 
 namespace EntityFramework.Repository.Mock;
 
@@ -12,7 +13,7 @@ namespace EntityFramework.Repository.Mock;
 /// </summary>
 /// <typeparam name="TContext">Your concrete entity framework context</typeparam>
 
-public class MockContextFactory<TContext> : IContextFactory
+public class InMemoryContextFactory<TContext> : IContextFactory
     where TContext : DbContext
 {
     private readonly static int DefaultTimeout = 30;
@@ -27,7 +28,7 @@ public class MockContextFactory<TContext> : IContextFactory
     public int Timeout { get; set; }
     public bool Pool { get; set; }
 
-    public MockContextFactory(IConfiguration configuration, 
+    public InMemoryContextFactory(IConfiguration configuration, 
         ILogger<IContextFactory> logger, string configPath = "")
     {
         Configuration = configuration;

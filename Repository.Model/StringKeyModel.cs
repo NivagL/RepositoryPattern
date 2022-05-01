@@ -1,4 +1,6 @@
-﻿namespace Repository.Model;
+﻿using Repository.Serialiser;
+
+namespace Repository.Model;
 
 public class StringKeyModel<TValue> : DefaultKeyModel<string, TValue>
 {
@@ -7,5 +9,6 @@ public class StringKeyModel<TValue> : DefaultKeyModel<string, TValue>
         KeysEqual = (x, y) => x == y;
         IsKeyTuple = false;
         NewKey = () => Guid.NewGuid().ToString();
+        KeySerialiser = new StringSerialiser();
     }
 }

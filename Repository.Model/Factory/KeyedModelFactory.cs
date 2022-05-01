@@ -7,7 +7,7 @@ public class KeyedModelFactory<TKey, TValue>
     , IKeyedModelFactory<TKey, TValue>
 {
     private readonly object KeyedMeta;
-    public Func<IServiceProvider, IKeyedModel<TKey, TValue>> KeyedModel { get; set; }
+    public Func<IServiceProvider, IKeyModel<TKey, TValue>> KeyedModel { get; set; }
 
     public KeyedModelFactory(object keyedMeta)
         : base(keyedMeta)
@@ -16,9 +16,9 @@ public class KeyedModelFactory<TKey, TValue>
         KeyedModel = KeyedModelImpl;
     }
 
-    private IKeyedModel<TKey, TValue> KeyedModelImpl(IServiceProvider provider)
+    private IKeyModel<TKey, TValue> KeyedModelImpl(IServiceProvider provider)
     {
-        return KeyedMeta as IKeyedModel<TKey, TValue>;
+        return KeyedMeta as IKeyModel<TKey, TValue>;
     }
 
     public new void RegisterTypes(IServiceCollection services)
