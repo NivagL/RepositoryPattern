@@ -1,0 +1,69 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.Abstraction;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Repository.Test
+{
+    [TestClass]
+    [TestCategory("Integration")]
+    public class TestCompositeKeyRepositoryValuesLoad : TestCompositeKeyRepositoryValues
+    {
+        [TestMethod]
+        public async Task CompositKeyLoadValuesTest()
+        {
+            //Delete them
+            var delete = await Repository.DeleteAll();
+
+            //Save one
+            var id = Guid.NewGuid();
+            var save = await Repository.Save(
+                new CompositeKeyTestModel()
+                {
+                    Id = id,
+                    Date = DateTime.UtcNow,
+                    Description = "Test",
+                    Processed = false
+                }
+            );
+            Assert.IsTrue(save);
+
+            //Check we can load it - no keys so load all
+            var load = await Repository.LoadAll(
+                new PageSelection() { PageSize = 10, PageNumber = 1 },
+                x => x.Date
+            );
+            Assert.IsTrue(load.Data.Where(x => x.Id == id).Any());
+        }
+
+        [TestMethod]
+        public async Task CompositeKeyPageLoadValuesTest()
+        {
+            //Clean up
+            var delete = await Repository.DeleteAll();
+
+            //Save one
+            var id = Guid.NewGuid();
+            var date = DateTime.UtcNow;
+            var save = await Repository.Save(
+                new CompositeKeyTestModel()
+                {
+                    Id = id,
+                    Date = date,
+                    Description = "Test",
+                    Processed = false
+                }
+            );
+            Assert.IsTrue(save);
+
+            //Check we can load it
+            var load = await Repository.LoadAll(
+                new PageSelection() { PageSize = 10, PageNumber = 1 },
+                x => x.Date
+                );
+
+            Assert.IsTrue(load.Data.Where(x => x.Id == id && x.Date == date).Any());
+        }
+    }
+}
