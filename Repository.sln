@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.Repository", "Repository.EntityFramework\EntityFramework.Repository.csproj", "{8723C782-0D06-4C63-8957-EF2FC512DA21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.Repository", "EntityFramework.Repository\EntityFramework.Repository.csproj", "{8723C782-0D06-4C63-8957-EF2FC512DA21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Expressions", "Repository.Expressions\Repository.Expressions.csproj", "{47D93752-3A2A-456C-B7A2-47CE11DCCC1B}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Test", "Reposito
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Model", "Repository.Model\Repository.Model.csproj", "{9C6774D1-F864-48C8-B6C7-91F24B60948B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.Repository.Mock", "Repository.EntityFramework.Mock\EntityFramework.Repository.Mock.csproj", "{B0071964-F576-4577-BD9B-30186E2419DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.Repository.Mock", "EntityFramework.Repository.Mock\EntityFramework.Repository.Mock.csproj", "{B0071964-F576-4577-BD9B-30186E2419DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
