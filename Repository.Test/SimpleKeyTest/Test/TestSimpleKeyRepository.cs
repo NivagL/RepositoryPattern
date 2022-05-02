@@ -8,20 +8,20 @@ namespace Repository.Test
 {
     public class TestSimpleKeyRepository : TestRepository<SimpleKeyTestContext>
     {
-        protected readonly IKeyedRepository<Guid, SimpleKeyTestModel> Repository;
+        protected readonly IRepository<Guid, SimpleKeyTestModel> Repository;
 
         public TestSimpleKeyRepository()
             : base("SimpleKeyTest")
         {
-            var model = new KeyedModelFactory<Guid, SimpleKeyTestModel>(new SimpleKeyTestModelMeta());
+            var model = new ModelFactory<Guid, SimpleKeyTestModel>(new SimpleKeyTestModelMeta());
             model.RegisterTypes(Services);
 
-            var repositorylogger = DependencyBuilder.Logger<KeyedRepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>>();
-            var repository = new KeyedRepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>(Configuration, repositorylogger);
+            var repositorylogger = DependencyBuilder.Logger<OneRepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>>();
+            var repository = new OneRepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>(Configuration, repositorylogger);
             repository.RegisterTypes(Services);
 
             var provider = DependencyBuilder.Provider;
-            Repository = provider.GetRequiredService<IKeyedRepository<Guid, SimpleKeyTestModel>>();
+            Repository = provider.GetRequiredService<IRepository<Guid, SimpleKeyTestModel>>();
         }
     }
 }

@@ -25,5 +25,21 @@ namespace Repository.Test
             Assert.IsTrue(save.Item1.Item1 == id
                 && save.Item1.Item2 == date);
         }
+
+        [TestMethod]
+        public async Task CompositeKeySaveValuesTest()
+        {
+            var id = Guid.NewGuid();
+            var save = await Repository.Save(
+                new CompositeKeyTestModel()
+                {
+                    Id = id,
+                    Date = DateTime.UtcNow,
+                    Description = "Test",
+                    Processed = false
+                }
+            );
+            Assert.IsTrue(save);
+        }
     }
 }
