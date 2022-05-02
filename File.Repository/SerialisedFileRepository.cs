@@ -6,15 +6,17 @@ namespace SerialisedFile.Repository
     public partial class SerialisedFileRepository<TKey, TValue>
         : IRepository<TKey, TValue>
     {
-        private readonly IKeyFileReader<TKey, TValue> FileReader;
-        private readonly IKeyFileWriter<TKey, TValue> FileWriter;
-        private readonly IKeyFileDeleter<TKey, TValue> FileDeleter;
+        protected readonly string Directory;
+        protected readonly IFileReader<TKey, TValue> FileReader;
+        protected readonly IFileWriter<TKey, TValue> FileWriter;
+        protected readonly IFileDeleter<TKey, TValue> FileDeleter;
 
-        public SerialisedFileRepository(
-            IKeyFileReader<TKey, TValue> fileReader
-            , IKeyFileWriter<TKey, TValue> fileWriter
-            , IKeyFileDeleter<TKey, TValue> fileDeleter)
+        public SerialisedFileRepository(string directory
+            , IFileReader<TKey, TValue> fileReader
+            , IFileWriter<TKey, TValue> fileWriter
+            , IFileDeleter<TKey, TValue> fileDeleter)
         {
+            Directory = directory;
             FileReader = fileReader;
             FileWriter = fileWriter;
             FileDeleter = fileDeleter;

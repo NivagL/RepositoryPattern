@@ -6,7 +6,7 @@ namespace Repository.Files;
 
 public class FileWriter<TKey, TValue> 
     : FileBase<TKey, TValue>
-    , IKeyFileWriter<TKey, TValue>
+    , IFileWriter<TKey, TValue>
     where TValue : class
     where TKey : notnull
 {

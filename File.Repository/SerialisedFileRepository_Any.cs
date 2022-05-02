@@ -8,12 +8,12 @@ namespace SerialisedFile.Repository
     {
         public Task<bool> Any(Expression<Func<TValue, bool>> queryExpression, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task<bool> Any()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
     }
 }

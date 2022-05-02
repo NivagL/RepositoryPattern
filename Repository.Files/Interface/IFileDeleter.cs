@@ -2,9 +2,9 @@
 
 namespace Repository.Files;
 
-public interface IValueFileDeleter<TValue>
+public interface IFileDeleter<TKey, TValue>
 {
-    Task<bool> Delete(TValue value, string subFolder = "");
+    TValue Delete(TKey key, string subFolder = "");
     int DeleteAll(string subFolder = "");
     IEnumerable<TValue> DeleteQuery(Expression<Func<TValue, bool>> expression, string subFolder = "");
 }

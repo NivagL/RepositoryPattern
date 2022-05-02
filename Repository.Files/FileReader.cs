@@ -7,7 +7,7 @@ namespace Repository.Files;
 
 public class FileReader<TKey, TValue> 
     : FileBase<TKey, TValue>
-    , IKeyFileReader<TKey, TValue>
+    , IFileReader<TKey, TValue>
     where TValue : class
     where TKey : notnull
 {
@@ -18,9 +18,26 @@ public class FileReader<TKey, TValue>
     {
     }
 
-    public IDictionary<TKey, TValue> ReadAll(string subFolder = "")
+    public TValue Read(TKey key, string subFolder = "")
     {
-        var read = new Dictionary<TKey, TValue>();
+        var value = default(TValue);
+
+        var directory = GetDirectory(subFolder);
+        var fileName = GetFileName(key, subFolder);
+
+        using (var file = new FileStream(fileName.Item3, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        {
+            var r = new StreamReader(file);
+            string s = r.ReadToEnd();
+            value = KeyModel.ValueSerialiser.CreateObject(s);
+        }
+
+        return value;
+    }
+
+    public IEnumerable<TValue> ReadAll(string subFolder = "")
+    {
+        var read = new List<TValue>();
 
         var directory = GetDirectory(subFolder);
         if (!Directory.Exists(directory))
@@ -34,15 +51,15 @@ public class FileReader<TKey, TValue>
                 string s = r.ReadToEnd();
                 var value = KeyModel.ValueSerialiser.CreateObject(s);
                 var key = KeyModel.GetKey(value);
-                read.Add(key, value);
+                read.Add(value);
             }
         }
         return read;
     }
 
-    public IDictionary<TKey, TValue> Read(Expression<Func<TValue, bool>> expression, string subFolder = "")
+    public IEnumerable<TValue> ReadQuery(Expression<Func<TValue, bool>> expression, string subFolder = "")
     {
-        var read = new Dictionary<TKey, TValue>();
+        var read = new List<TValue>();
         
         var directory = GetDirectory(subFolder);
         if (!Directory.Exists(directory))
@@ -60,7 +77,7 @@ public class FileReader<TKey, TValue>
                 var func = expression.Compile();
                 if (func(value))
                 {
-                    read.Add(key, value);
+                    read.Add(value);
                 }
             }
         }

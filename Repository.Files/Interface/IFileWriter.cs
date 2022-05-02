@@ -1,7 +1,7 @@
 ﻿namespace Repository.Files;
 
-public interface IValueFileWriter<TKey, TValue>
+public interface IFileWriter<TKey, TValue>
 {
-    bool Write(TValue value, string subFolder = "");
+    TKey Write(TValue value, string subFolder = "");
     void WriteAll(IEnumerable<TValue> values, string subFolder = "");
 }
