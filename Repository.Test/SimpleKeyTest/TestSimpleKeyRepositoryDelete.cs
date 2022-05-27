@@ -32,7 +32,7 @@ namespace Repository.Test
             //Check it's no longer there
             try
             {
-                var load = await Repository.KeyedLoad(id);
+                var load = await Repository.Load(id);
                 Assert.Fail("Should throw");
             }
             catch (Exception)

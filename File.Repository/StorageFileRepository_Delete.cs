@@ -16,7 +16,7 @@ namespace SerialisedFile.Repository
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAll()
+        public Task<int> DeleteAll()
         {
             throw new NotImplementedException();
         }

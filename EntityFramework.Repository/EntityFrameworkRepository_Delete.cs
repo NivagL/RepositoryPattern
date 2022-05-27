@@ -45,61 +45,113 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 
                 return existing;
             }
+            catch (OperationCanceledException ex)
+            {
+                var userMsg = $"{nameof(TValue)} delete key timed out";
+                var systemMsg = $"{ex.Message}/{ex.StackTrace}/{ex.InnerException?.Message}";
+
+                if (Logger.IsEnabled(LogLevel.Error))
+                    Logger.LogError($"{userMsg}/{systemMsg}");
+
+                throw new RepositoryExceptionTimeout(
+                    userMsg, systemMsg, requestTimeout);
+            }
             catch (Exception ex)
             {
-                var userMsg = $"Repository could not delete {typeof(TValue).Name} for key {key}";
-                var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
+                var userMsg = $"{nameof(TValue)} delete key error";
+                var systemMsg = $"{ex.Message}/{ex.StackTrace}/{ex.InnerException?.Message}";
+
                 if (Logger.IsEnabled(LogLevel.Error))
-                    Logger.LogError($"{userMsg} - {msg}");
-                throw new RepositoryException(userMsg, msg);
+                    Logger.LogError($"{userMsg}/{systemMsg}");
+
+                throw new RepositoryException(
+                    userMsg, systemMsg);
             }
         }
     }
 
-    public async Task<bool> DeleteAll()
+    public async Task<int> DeleteAll()
     {
-        try
+        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
+        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
         {
-            var tableName = typeof(TValue).Name;
-            var command = $"TRUNCATE TABLE {tableName}";
-            //var command = $"DELETE * FROM {tableName}";
+            try
+            {
+                var count = 0;
+                while (await Set.AnyAsync())
+                {
+                    var chunk = await Set.Take(1000).ToListAsync();
+                    Set.RemoveRange(chunk);
+                    await Context.SaveChangesAsync(cancellationToken.Token);
+                    count += chunk.Count;
+                }
+                return count;
+            }
+            catch (OperationCanceledException ex)
+            {
+                var userMsg = $"{nameof(TValue)} delete all timed out";
+                var systemMsg = $"{ex.Message}/{ex.StackTrace}/{ex.InnerException?.Message}";
 
-#pragma warning disable EF1000  
-            int count = await Context.Database.ExecuteSqlRawAsync(command);
-#pragma warning restore EF1000
+                if (Logger.IsEnabled(LogLevel.Error))
+                    Logger.LogError($"{userMsg}/{systemMsg}");
 
-            SaveChanges();
+                throw new RepositoryExceptionTimeout(
+                    userMsg, systemMsg, requestTimeout);
+            }
+            catch (Exception ex)
+            {
+                var userMsg = $"{nameof(TValue)} delete all error";
+                var systemMsg = $"{ex.Message}/{ex.StackTrace}/{ex.InnerException?.Message}";
 
-            return true;
-        }
-        catch (Exception ex)
-        {
-            var userMsg = $"Repository could not delet all {typeof(TValue).Name}";
-            var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
-            Logger.LogError($"{userMsg} - {msg}");
+                if (Logger.IsEnabled(LogLevel.Error))
+                    Logger.LogError($"{userMsg}/{systemMsg}");
 
-            throw new RepositoryException(userMsg, msg);
+                throw new RepositoryException(
+                    userMsg, systemMsg);
+            }
         }
     }
 
-    public async Task<int> DeleteQuery(Expression<Func<TValue, bool>> predicate)
+    public async Task<int> DeleteQuery(Expression<Func<TValue, bool>> expression)
     {
-        try
+        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
+        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
         {
-            var set = Set.Where(predicate).ToList();
-            var count = set.Count();
-            Set.RemoveRange(set);
-            await Context.SaveChangesAsync();
+            try
+            {
+                var set = Set.Where(expression).ToList();
+                var count = 0;
+                while (set.Any())
+                {
+                    var chunk = await Set.Take(1000).ToListAsync();
+                    Set.RemoveRange(chunk);
+                    await Context.SaveChangesAsync(cancellationToken.Token);
+                    count += chunk.Count;
+                }
+                return count;
+            }
+            catch (OperationCanceledException ex)
+            {
+                var userMsg = $"{nameof(TValue)} delete all timed out";
+                var systemMsg = $"{ex.Message}/{ex.StackTrace}/{ex.InnerException?.Message}";
 
-            return count;
-        }
-        catch (Exception ex)
-        {
-            var userMsg = $"Repository could not delete {typeof(TValue).Name} for expression";
-            var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
-            Logger.LogError($"{userMsg} - {msg}");
+                if (Logger.IsEnabled(LogLevel.Error))
+                    Logger.LogError($"{userMsg}/{systemMsg}");
 
-            throw new RepositoryException(userMsg, msg);
+                throw new RepositoryExceptionTimeout(
+                    userMsg, systemMsg, requestTimeout);
+            }
+            catch (Exception ex)
+            {
+                var userMsg = $"{nameof(TValue)} delete all error";
+                var systemMsg = $"{ex.Message}/{ex.StackTrace}/{ex.InnerException?.Message}";
+
+                if (Logger.IsEnabled(LogLevel.Error))
+                    Logger.LogError($"{userMsg}/{systemMsg}");
+
+                throw new RepositoryException(
+                    userMsg, systemMsg);
+            }
         }
     }
 }

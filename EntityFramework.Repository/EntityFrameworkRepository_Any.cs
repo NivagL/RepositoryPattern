@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Repository.Abstraction;
+using Repository.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,9 +27,18 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                 //does this load into memory or get evaluated on databse server?
                 //var item = await Set.AnyAsync(x => KeyedModel.KeysEqual(KeyedModel.GetKey(x), key));
 
-                //this loads the item but will be quicker
-                var item = await Set.FindAsync(key); 
-                return item != null;
+                TValue existing = null;
+                if (!KeyedModel.IsKeyTuple)
+                {
+                    existing = await Set.FindAsync(key);
+                }
+                else
+                {
+                    var keys = new List<object>();
+                    keys.AddRange(TupleUtils.TupleToEnumerable(key));
+                    existing = await Set.FindAsync(keys.ToArray());
+                }
+                return existing != null;
             }
             catch (OperationCanceledException ex)
             {

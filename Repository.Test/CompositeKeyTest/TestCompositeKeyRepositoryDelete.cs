@@ -34,7 +34,7 @@ namespace Repository.Test
             //Check it's no longer there
             try
             {
-                var load = await Repository.KeyedLoad(Tuple.Create(id, date));
+                var load = await Repository.Load(Tuple.Create(id, date));
                 Assert.Fail("Should throw");
             }
             catch (Exception)
@@ -60,7 +60,7 @@ namespace Repository.Test
 
             //Check we can delete it - no keys so delete all
             var deleted = await Repository.DeleteAll();
-            Assert.IsTrue(deleted);
+            Assert.IsTrue(deleted > 0);
 
             //Check it's no longer there
             var any = await Repository.Any();

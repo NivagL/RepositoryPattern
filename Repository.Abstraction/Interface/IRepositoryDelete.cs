@@ -19,7 +19,7 @@ public interface IRepositoryDelete<TKey, TValue>
     /// Delete all entities - be careful!
     /// </summary>
     /// <returns>Number of deleted items</returns>
-    Task<bool> DeleteAll();
+    Task<int> DeleteAll();
     /// <summary>
     /// Delete the entities that match the expression
     /// </summary>

@@ -11,7 +11,7 @@ namespace SerialisedFile.Repository
     public partial class StorageFileRepository<TKey, TValue>
         : IRepositoryLoad<TKey, TValue>
     {
-        public Task<TValue> KeyedLoad(TKey key, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)
+        public Task<TValue> Load(TKey key, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)
         {
             throw new NotImplementedException();
         }
