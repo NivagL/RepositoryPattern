@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace SerialisedFile.Repository
 {
-    public partial class SerialisedFileRepository<TKey, TValue>
+    public partial class StorageFileRepository<TKey, TValue>
         : IRepositoryDelete<TKey, TValue>
     {
-        public Task<TValue> KeyedDelete(TKey key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(TValue value)
+        public Task<TValue> Delete(TKey key)
         {
             throw new NotImplementedException();
         }

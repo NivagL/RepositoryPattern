@@ -4,6 +4,7 @@ namespace Repository.Files;
 
 public interface IFileReader<TKey, TValue>
 {
+    bool Any(string subFolder = "");
     TValue Read(TKey id, string subFolder = "");
     IEnumerable<TValue> ReadAll(string subFolder = "");
     IEnumerable<TValue> ReadQuery(Expression<Func<TValue, bool>> expression, string subFolder = "");

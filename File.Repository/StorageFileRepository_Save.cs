@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SerialisedFile.Repository
 {
-    public partial class SerialisedFileRepository<TKey, TValue>
+    public partial class StorageFileRepository<TKey, TValue>
         : IRepositorySave<TKey, TValue>
     {
         public Task<Tuple<TKey, ChangeEnum>> KeyedSave(TValue value, bool replace = true)

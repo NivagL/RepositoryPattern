@@ -15,13 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Test", "Reposito
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Model", "Repository.Model\Repository.Model.csproj", "{9C6774D1-F864-48C8-B6C7-91F24B60948B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Files.Repository", "File.Repository\Files.Repository.csproj", "{9650CEF8-5898-49AE-B5BF-24C6FD246CFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageFile.Repository", "File.Repository\StorageFile.Repository.csproj", "{9650CEF8-5898-49AE-B5BF-24C6FD246CFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Serialiser", "Repository.Serialiser\Repository.Serialiser.csproj", "{868C92E8-D184-449B-A3B7-899589E217C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Files", "Repository.Files\Repository.Files.csproj", "{A8CD1DA8-EA81-42AE-B059-D19B1C22737E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmo.Repository", "Cosmo.Repository\Cosmo.Repository.csproj", "{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmoDB.Repository", "Cosmo.Repository\CosmoDB.Repository.csproj", "{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Files.Test", "Repository.Files.Test\Repository.Files.Test.csproj", "{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Test.Model", "Repository.Test.Model\Repository.Test.Model.csproj", "{D910B814-1AD4-4596-8933-3F9A19258434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,14 @@ Global
 		{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D910B814-1AD4-4596-8933-3F9A19258434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D910B814-1AD4-4596-8933-3F9A19258434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D910B814-1AD4-4596-8933-3F9A19258434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D910B814-1AD4-4596-8933-3F9A19258434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

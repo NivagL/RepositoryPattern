@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SerialisedFile.Repository
 {
-    public partial class SerialisedFileRepository<TKey, TValue>
+    public partial class StorageFileRepository<TKey, TValue>
         : IRepositoryLoad<TKey, TValue>
     {
         public Task<TValue> KeyedLoad(TKey key, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)

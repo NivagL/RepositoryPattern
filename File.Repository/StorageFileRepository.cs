@@ -3,7 +3,7 @@ using Repository.Files;
 
 namespace SerialisedFile.Repository
 {
-    public partial class SerialisedFileRepository<TKey, TValue>
+    public partial class StorageFileRepository<TKey, TValue>
         : IRepository<TKey, TValue>
     {
         protected readonly string Directory;
@@ -11,7 +11,7 @@ namespace SerialisedFile.Repository
         protected readonly IFileWriter<TKey, TValue> FileWriter;
         protected readonly IFileDeleter<TKey, TValue> FileDeleter;
 
-        public SerialisedFileRepository(string directory
+        public StorageFileRepository(string directory
             , IFileReader<TKey, TValue> fileReader
             , IFileWriter<TKey, TValue> fileWriter
             , IFileDeleter<TKey, TValue> fileDeleter)

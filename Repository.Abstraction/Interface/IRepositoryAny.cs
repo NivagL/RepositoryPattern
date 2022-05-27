@@ -10,6 +10,12 @@ namespace Repository.Abstraction;
 public interface IRepositoryAny<TKey, TValue>
 {
     /// <summary>
+    /// Does the set have an item with the key
+    /// </summary>
+    /// <returns></returns>
+    Task<bool> Any(TKey key);
+
+    /// <summary>
     /// Does the set have any items
     /// </summary>
     /// <returns></returns>

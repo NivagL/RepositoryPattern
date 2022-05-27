@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.Abstraction;
+using Repository.Test.Model;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

@@ -10,11 +10,11 @@ namespace Repository.Abstraction;
 public interface IRepositoryDelete<TKey, TValue>
 {
     /// <summary>
-    /// Delete the entity with the given value
+    /// Delete based on key
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    Task<bool> Delete(TValue value);
+    /// <param name="key"></param>
+    /// <returns>true/false if deleted or not</returns>
+    Task<TValue> Delete(TKey key);
     /// <summary>
     /// Delete all entities - be careful!
     /// </summary>
@@ -26,11 +26,4 @@ public interface IRepositoryDelete<TKey, TValue>
     /// <param name="queryExpression"></param>
     /// <returns>Number of deleted items</returns>
     Task<int> DeleteQuery(Expression<Func<TValue, bool>> queryExpression);
-
-    /// <summary>
-    /// Delete based on key
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns>true/false if deleted or not</returns>
-    Task<TValue> KeyedDelete(TKey key);
 }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Abstraction;
 using Repository.Model;
+using Repository.Test.Model;
 using System;
 
 namespace Repository.Test

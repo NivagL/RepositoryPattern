@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Repository.Test;
+namespace Repository.Test.Model;
 
 public class CompositeKeyTestModel
     : IEqualityComparer<CompositeKeyTestModel>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SerialisedFile.Repository
 {
-    public partial class SerialisedFileRepository<TKey, TValue>
+    public partial class StorageFileRepository<TKey, TValue>
         : IRepositoryQuery<TKey, TValue>
     {
         public Task<KeyedPageResult<TKey, TValue>> KeyedPageQuery(Expression<Func<TValue, bool>> queryExpression, Expression<Func<TValue, object>> orderExpression, PageFilter pageFilter, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)

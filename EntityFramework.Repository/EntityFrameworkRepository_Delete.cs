@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Repository.Abstraction;
 using Repository.Utils;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EntityFramework.Repository;
@@ -16,61 +18,41 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
     where TValue : class
     where TKey : notnull
 {
-    public async Task<TValue> KeyedDelete(TKey key)
+    public async Task<TValue> Delete(TKey key)
     {
-        try
+        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
+        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
         {
-            TValue existing = null;
-            if (!KeyedModel.IsKeyTuple)
+            try
             {
-                existing = await Set.FindAsync(key);
+                TValue existing = null;
+                if (!KeyedModel.IsKeyTuple)
+                {
+                    existing = await Set.FindAsync(key);
+                }
+                else
+                {
+                    var keys = new List<object>();
+                    keys.AddRange(TupleUtils.TupleToEnumerable(key));
+                    existing = await Set.FindAsync(keys.ToArray());
+                }
+                if (existing != null)
+                {
+                    RemoveRelated(existing);
+                    Set.Remove(existing);
+                    await Context.SaveChangesAsync();
+                }
+
+                return existing;
             }
-            else
+            catch (Exception ex)
             {
-                var keys = new List<object>();
-                keys.AddRange(TupleUtils.TupleToEnumerable(key));
-                existing = await Set.FindAsync(keys.ToArray());
+                var userMsg = $"Repository could not delete {typeof(TValue).Name} for key {key}";
+                var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
+                if (Logger.IsEnabled(LogLevel.Error))
+                    Logger.LogError($"{userMsg} - {msg}");
+                throw new RepositoryException(userMsg, msg);
             }
-            if (existing != null)
-            {
-                RemoveRelated(existing);
-                Set.Remove(existing);
-                await Context.SaveChangesAsync();
-            }
-
-            return existing;
-        }
-        catch (Exception ex)
-        {
-            var userMsg = $"Repository could not delete {typeof(TValue).Name} for key {key}";
-            var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
-            if (Logger.IsEnabled(LogLevel.Error))
-                Logger.LogError($"{userMsg} - {msg}");
-            throw new RepositoryException(userMsg, msg);
-        }
-    }
-
-    public async Task<bool> Delete(TValue value)
-    {
-        try
-        {
-            var existing = await Set.FindAsync(value);
-            if (existing != null)
-            {
-                RemoveRelated(existing);
-                Set.Remove(existing);
-                await Context.SaveChangesAsync();
-            }
-
-            return true;
-        }
-        catch (Exception ex)
-        {
-            var userMsg = $"Repository could not delete {typeof(TValue).Name}";
-            var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
-            Logger.LogError($"{userMsg} - {msg}");
-
-            throw new RepositoryException(userMsg, msg);
         }
     }
 

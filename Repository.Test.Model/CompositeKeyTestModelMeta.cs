@@ -1,7 +1,7 @@
 ﻿using Repository.Model;
 using System;
 
-namespace Repository.Test;
+namespace Repository.Test.Model;
 
 public class CompositeKeyTestModelMeta 
     : DefaultKeyModel<Tuple<Guid, DateTime>, CompositeKeyTestModel>

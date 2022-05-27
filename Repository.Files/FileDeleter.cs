@@ -23,14 +23,13 @@ public class FileDeleter<TKey, TValue>
 
     public TValue Delete(TKey key, string subFolder = "")
     {
-        var fileDesc = GetFileName(key, subFolder);
-        CopyFile(fileDesc, "Deleted");
-        if(File.Exists(fileDesc.Item3))
-        { 
-            File.Delete(fileDesc.Item3);
+        var value = FileReader.Read(key, subFolder);
+        if(value != null)
+        {
+            var fileName = GetFileName(key, subFolder);
+            File.Delete(fileName.Item3);
         }
-        //TODO Read the items first
-        return default(TValue);
+        return value;
     }
 
     public int DeleteAll(string subFolder = "")

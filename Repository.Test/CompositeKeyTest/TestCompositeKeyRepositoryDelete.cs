@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.Test.Model;
 using System;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Repository.Test
                 && save.Item1.Item2 == date);
 
             //Check we can delete it
-            var deleted = await Repository.KeyedDelete(Tuple.Create(id, date));
+            var deleted = await Repository.Delete(Tuple.Create(id, date));
             Assert.IsTrue(deleted.Id == id);
 
             //Check it's no longer there

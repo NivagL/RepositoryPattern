@@ -1,6 +1,6 @@
 ﻿using Repository.Model;
 
-namespace Repository.Test;
+namespace Repository.Test.Model;
 
 public class SimpleKeyTestModelMeta : GuidKeyModel<SimpleKeyTestModel>
 {

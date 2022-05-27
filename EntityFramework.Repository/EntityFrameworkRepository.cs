@@ -13,22 +13,26 @@ using System.Threading.Tasks;
 namespace EntityFramework.Repository;
 
 public partial class EntityFrameworkRepository<TContext, TKey, TValue>
-    : IRepository<TKey, TValue>
-    , IConnected
+    : IRepository<TKey, TValue>, IConnected
     where TContext : DbContext
     where TValue : class
     where TKey : notnull
 {
     protected readonly IConfiguration Configuration;
-    protected readonly ILogger<EntityFrameworkRepository<TContext, TKey, TValue>> Logger;
-    protected readonly DbContext Context;
+    protected readonly ILogger<IRepository<TKey, TValue>> Logger;
+    protected readonly TContext Context;
     protected readonly DbSet<TValue> Set;
     protected readonly bool TrackQueries;
     protected readonly IKeyModel<TKey, TValue> KeyedModel;
+    protected readonly string ConfigPath;
 
-    public EntityFrameworkRepository(IConfiguration configuration, 
-        ILogger<EntityFrameworkRepository<TContext, TKey, TValue>> logger,
-        DbContext context, IKeyModel<TKey, TValue> keyedModel, bool trackQueries = false)
+    public EntityFrameworkRepository(
+        IConfiguration configuration, 
+        ILogger<IRepository<TKey, TValue>> logger,
+        TContext context, 
+        IKeyModel<TKey, TValue> keyedModel, 
+        bool trackQueries = false,
+        string configPath = "")
     {
         Configuration = configuration;
         Logger = logger;
@@ -36,6 +40,14 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         KeyedModel = keyedModel;
         Set = Context.Set<TValue>();
         TrackQueries = trackQueries;
+
+        if(!string.IsNullOrWhiteSpace(configPath))
+        {
+            if (configPath.Last() == ':')
+                ConfigPath = configPath;
+            else
+                ConfigPath = $"{configPath}:";
+        }
     }
 
     private void SaveChanges()

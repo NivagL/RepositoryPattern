@@ -37,10 +37,16 @@ public abstract class FileBase<TKey, TValue>
         return new Tuple<string, string, string>(directory, file, fullPath);
     }
 
-    private string GetFileName(TKey key)
+    public string GetFileName(TKey key)
     {
         var keyStr = KeyModel.KeySerialiser.CreateString(key);
         var fileStr = $"{KeyModel.ValueTypeName}_{keyStr}.json";
+        return CleanFileName(fileStr);
+    }
+
+    public string GetFileNameWildcard()
+    {
+        var fileStr = $"{KeyModel.ValueTypeName}_*.json";
         return CleanFileName(fileStr);
     }
 

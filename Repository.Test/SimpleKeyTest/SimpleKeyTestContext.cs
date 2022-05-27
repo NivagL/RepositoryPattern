@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Repository.Test.Model;
 
 namespace Repository.Test;
 public class SimpleKeyTestContext : DbContext

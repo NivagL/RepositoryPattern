@@ -18,6 +18,14 @@ public class FileReader<TKey, TValue>
     {
     }
 
+    public bool Any(string subFolder = "")
+    {
+        var directory = GetDirectory(subFolder);
+        var files = GetFileNameWildcard();
+        var path = $"{directory}\\{files}";
+        return Directory.GetFiles(path).Any();
+    }
+
     public TValue Read(TKey key, string subFolder = "")
     {
         var value = default(TValue);
