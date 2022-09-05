@@ -11,22 +11,12 @@ namespace SerialisedFile.Repository
     public partial class StorageFileRepository<TKey, TValue>
         : IRepositorySave<TKey, TValue>
     {
-        public Task<Tuple<TKey, ChangeEnum>> KeyedSave(TValue value, bool replace = true)
+        public Task<IEnumerable<Tuple<TKey, ChangeEnum>>> Save(IEnumerable<TValue> values, bool replace = true, bool trackChanges = false)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Tuple<TKey, ChangeEnum>>> KeyedSaveAll(IEnumerable<TValue> values, bool replace = true)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Save(TValue value, bool replace = true)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> SaveAll(IEnumerable<TValue> values, bool replace = true)
+        public Task<Tuple<TKey, ChangeEnum>> Save(TValue value, bool replace = true, bool trackChanges = false)
         {
             throw new NotImplementedException();
         }

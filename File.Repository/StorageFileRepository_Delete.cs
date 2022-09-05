@@ -16,7 +16,7 @@ namespace SerialisedFile.Repository
             throw new NotImplementedException();
         }
 
-        public Task<int> DeleteAll()
+        public Task<int> DeleteAll(int chunks = 1000)
         {
             throw new NotImplementedException();
         }

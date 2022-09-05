@@ -17,28 +17,14 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
     where TValue : class
     where TKey : notnull
 {
-    public async Task<bool> Any(TKey key)
+    public async Task<bool> Any()
     {
         var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
         using (var cancellationToken = new CancellationTokenSource(requestTimeout))
         {
             try
             {
-                //does this load into memory or get evaluated on databse server?
-                //var item = await Set.AnyAsync(x => KeyedModel.KeysEqual(KeyedModel.GetKey(x), key));
-
-                TValue existing = null;
-                if (!KeyedModel.IsKeyTuple)
-                {
-                    existing = await Set.FindAsync(key);
-                }
-                else
-                {
-                    var keys = new List<object>();
-                    keys.AddRange(TupleUtils.TupleToEnumerable(key));
-                    existing = await Set.FindAsync(keys.ToArray());
-                }
-                return existing != null;
+                return await Set.AnyAsync(cancellationToken.Token);
             }
             catch (OperationCanceledException ex)
             {
@@ -65,16 +51,31 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         }
     }
 
-    public async Task<bool> Any()
+    public async Task<bool> Any(TKey key)
     {
         var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
         using (var cancellationToken = new CancellationTokenSource(requestTimeout))
         {
             try
             {
-                return await Set.AnyAsync(cancellationToken.Token);
+                //does this load into memory or get evaluated on databse server?
+                //var item = await Set.AnyAsync(x => KeyedModel.KeysEqual(KeyedModel.GetKey(x), key));
+
+                TValue existing = null;
+                if (!Model.IsKeyTuple)
+                {
+                    existing = await Set.FindAsync(key);
+                    return existing != null;
+                }
+                else
+                {
+                    var keys = new List<object>();
+                    keys.AddRange(TupleUtils.TupleToEnumerable(key));
+                    existing = await Set.FindAsync(keys.ToArray());
+                    return existing != null;
+                }
             }
-            catch(OperationCanceledException ex)
+            catch (OperationCanceledException ex)
             {
                 var userMsg = $"{nameof(TValue)} any check timed out";
                 var systemMsg = $"{ex.Message}/{ex.StackTrace}/{ex.InnerException?.Message}";
@@ -99,15 +100,14 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         }
     }
 
-    public async Task<bool> Any(Expression<Func<TValue, bool>> expression,
-        LoadFlagsEnum loadFlags)
+    public async Task<bool> Any(Expression<Func<TValue, bool>> expression)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
+        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}:Timeout");
         using (var cancellationToken = new CancellationTokenSource(requestTimeout))
         {
             try
             {
-                var queryable = Queryable(expression, loadFlags);
+                var queryable = Queryable(expression, LoadFlagsEnum.All);
                 if(TrackQueries)
                     return await queryable.AnyAsync(cancellationToken.Token);
                 else

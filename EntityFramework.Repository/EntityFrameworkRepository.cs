@@ -23,21 +23,21 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
     protected readonly TContext Context;
     protected readonly DbSet<TValue> Set;
     protected readonly bool TrackQueries;
-    protected readonly IKeyModel<TKey, TValue> KeyedModel;
+    protected readonly IKeyModel<TKey, TValue> Model;
     protected readonly string ConfigPath;
 
     public EntityFrameworkRepository(
         IConfiguration configuration, 
         ILogger<IRepository<TKey, TValue>> logger,
         TContext context, 
-        IKeyModel<TKey, TValue> keyedModel, 
+        IKeyModel<TKey, TValue> model, 
         bool trackQueries = false,
         string configPath = "")
     {
         Configuration = configuration;
         Logger = logger;
         Context = context;
-        KeyedModel = keyedModel;
+        Model = model;
         Set = Context.Set<TValue>();
         TrackQueries = trackQueries;
 
@@ -52,6 +52,9 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 
     private void SaveChanges()
     {
+        if (Logger.IsEnabled(LogLevel.Information))
+            Logger.LogInformation($"Saving {typeof(TValue).Name} changes");
+
         Context.SaveChanges();
     }
 
@@ -68,26 +71,26 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         return Context.Set<TValue>().Where(expression);
     }
 
-    public virtual void LoadRelated(
-        TValue value, LoadFlagsEnum loadFlags)
-    {
-    }
+//    public virtual void LoadRelated(
+//        TValue value, LoadFlagsEnum loadFlags)
+//    {
+//    }
 
-#pragma warning disable CS1998
-    public virtual async Task LoadRelated(
-        IEnumerable<TValue> data, LoadFlagsEnum loadFlags)
-    {
-    }
+//#pragma warning disable CS1998
+//    public virtual async Task LoadRelated(
+//        IEnumerable<TValue> data, LoadFlagsEnum loadFlags)
+//    {
+//    }
 
-    public virtual async Task LoadRelated(
-        IDictionary<TKey, TValue> data, LoadFlagsEnum loadFlags)
-    {
-    }
-#pragma warning restore CS1998
+//    public virtual async Task LoadRelated(
+//        IDictionary<TKey, TValue> data, LoadFlagsEnum loadFlags)
+//    {
+//    }
+//#pragma warning restore CS1998
 
-    public virtual void RemoveRelated(TValue value)
-    {
-    }
+//    public virtual void RemoveRelated(TValue value)
+//    {
+//    }
 
     public virtual bool IsConnected()
     {

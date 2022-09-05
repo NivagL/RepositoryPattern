@@ -26,7 +26,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
             try
             {
                 TValue existing = null;
-                if (!KeyedModel.IsKeyTuple)
+                if (!Model.IsKeyTuple)
                 {
                     existing = await Set.FindAsync(key);
                 }
@@ -38,7 +38,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                 }
                 if (existing != null)
                 {
-                    RemoveRelated(existing);
+                    //RemoveRelated(existing);
                     Set.Remove(existing);
                     await Context.SaveChangesAsync();
                 }
@@ -70,7 +70,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         }
     }
 
-    public async Task<int> DeleteAll()
+    public async Task<int> DeleteAll(int chunks = 1000)
     {
         var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
         using (var cancellationToken = new CancellationTokenSource(requestTimeout))
@@ -80,7 +80,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                 var count = 0;
                 while (await Set.AnyAsync())
                 {
-                    var chunk = await Set.Take(1000).ToListAsync();
+                    var chunk = await Set.Take(chunks).ToListAsync();
                     Set.RemoveRange(chunk);
                     await Context.SaveChangesAsync(cancellationToken.Token);
                     count += chunk.Count;

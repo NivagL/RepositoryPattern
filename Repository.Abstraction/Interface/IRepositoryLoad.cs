@@ -10,16 +10,6 @@ namespace Repository.Abstraction;
 public interface IRepositoryLoad<TKey, TValue>
 {
     /// <summary>
-    /// Load a single entity identified by the key
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="loadFlags"></param>
-    /// <returns></returns>
-    Task<TValue> Load(TKey key,
-        LoadFlagsEnum loadFlags = LoadFlagsEnum.All
-        );
-
-    /// <summary>
     /// Load a page of entities that match the expression
     /// Order is important to allow iteration over the pages
     /// </summary>
@@ -27,25 +17,16 @@ public interface IRepositoryLoad<TKey, TValue>
     /// <param name="orderExpression"></param>
     /// <param name="loadFlags"></param>
     /// <returns></returns>
-    Task<ValuePageResult<TValue>> LoadAll(
+    Task<PageResult<TKey, TValue>> LoadAll(
         PageSelection pageSelection,
         Expression<Func<TValue, object>> orderExpression,
-        SortOrderEnum sortOrder = SortOrderEnum.Ascending,
-        LoadFlagsEnum loadFlags = LoadFlagsEnum.All
-        );
+        SortOrderEnum sortOrder = SortOrderEnum.Ascending);
 
-    ///// <summary>
-    ///// Load a page of entities that match the expression
-    ///// Order is important to allow iteration over the pages
-    ///// </summary>
-    ///// <param name="pageFilter"></param>
-    ///// <param name="orderExpression"></param>
-    ///// <param name="loadFlags"></param>
-    ///// <returns></returns>
-    //Task<KeyedPageResult<TKey, TValue>> KeyedLoadAll(
-    //    PageSelection pageSelection,
-    //    Expression<Func<TValue, object>> orderExpression,
-    //    SortOrderEnum sortOrder = SortOrderEnum.Ascending,
-    //    LoadFlagsEnum loadFlags = LoadFlagsEnum.All
-    //    );
+    /// <summary>
+    /// Load a single entity identified by the key
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="loadFlags"></param>
+    /// <returns></returns>
+    Task<TValue> Load(TKey key);
 }

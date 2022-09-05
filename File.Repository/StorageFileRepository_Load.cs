@@ -11,17 +11,12 @@ namespace SerialisedFile.Repository
     public partial class StorageFileRepository<TKey, TValue>
         : IRepositoryLoad<TKey, TValue>
     {
-        public Task<TValue> Load(TKey key, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)
+        public Task<TValue> Load(TKey key)
         {
             throw new NotImplementedException();
         }
 
-        public Task<KeyedPageResult<TKey, TValue>> KeyedLoadAll(PageSelection pageSelection, Expression<Func<TValue, object>> orderExpression, SortOrderEnum sortOrder = SortOrderEnum.Ascending, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ValuePageResult<TValue>> LoadAll(PageSelection pageSelection, Expression<Func<TValue, object>> orderExpression, SortOrderEnum sortOrder = SortOrderEnum.Ascending, LoadFlagsEnum loadFlags = LoadFlagsEnum.All)
+        public Task<PageResult<TKey, TValue>> LoadAll(PageSelection pageSelection, Expression<Func<TValue, object>> orderExpression, SortOrderEnum sortOrder = SortOrderEnum.Ascending)
         {
             throw new NotImplementedException();
         }

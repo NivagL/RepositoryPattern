@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.Abstraction;
 using Repository.Test.Model;
 using System;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Repository.Test
         {
             //Save one
             var id = Guid.NewGuid();
-            var save = await Repository.KeyedSave(
+            var save = await Repository.Save(
                 new SimpleKeyTestModel()
                 {
                     Id = id,
@@ -23,7 +24,7 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save.Item1 == id);
+            Assert.IsTrue(save.Item2 == ChangeEnum.Added);
 
             //Check we can delete it
             var deleted = await Repository.Delete(id);

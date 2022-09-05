@@ -1,13 +1,13 @@
 ﻿namespace Repository.Abstraction;
 
-public class KeyedPageResult<TKey, TValue> 
+public class PageResult<TKey, TValue> 
 {
     public int TotalItems { get; set; }
     public int PageNumber { get; set; }
     public int TotalPages { get; set; }
     public IDictionary<TKey, TValue> Data { get; set; }
 
-    public KeyedPageResult(int totalItems, int pageNumber, int pageSize)
+    public PageResult(int totalItems, int pageNumber, int pageSize)
     {
 #pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
         Data = new Dictionary<TKey, TValue>();

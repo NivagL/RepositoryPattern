@@ -17,8 +17,8 @@ namespace Repository.Test
             var model = new ModelFactory<Guid, SimpleKeyTestModel>(new SimpleKeyTestModelMeta());
             model.RegisterTypes(Services);
 
-            var repositorylogger = DependencyBuilder.Logger<OneRepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>>();
-            var repository = new OneRepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>(Configuration, repositorylogger);
+            var repositorylogger = DependencyBuilder.Logger<RepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>>();
+            var repository = new RepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>(Configuration, repositorylogger);
             repository.RegisterTypes(Services);
 
             var provider = DependencyBuilder.Provider;

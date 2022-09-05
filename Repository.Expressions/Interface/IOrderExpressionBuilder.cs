@@ -7,8 +7,9 @@ namespace Repository.Expressions
     /// Create an order by expression for TValue
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
+    /// <returns>The expression</returns>
     public interface IOrderExpressionBuilder<TValue>
-    {        /// <returns></returns>
+    {        
         Expression<Func<TValue, object>> CreateExpression(string propertyNames, char propertyDelimiter = '|');
     }
 }

@@ -10,16 +10,16 @@ namespace Repository.Abstraction;
 public interface IRepositoryAny<TKey, TValue>
 {
     /// <summary>
-    /// Does the set have an item with the key
-    /// </summary>
-    /// <returns></returns>
-    Task<bool> Any(TKey key);
-
-    /// <summary>
     /// Does the set have any items
     /// </summary>
     /// <returns></returns>
     Task<bool> Any();
+
+    /// <summary>
+    /// Does the set have an item with the key
+    /// </summary>
+    /// <returns></returns>
+    Task<bool> Any(TKey key);
 
     /// <summary>
     /// Does the set have any items that match the expression
@@ -27,7 +27,5 @@ public interface IRepositoryAny<TKey, TValue>
     /// <param name="expression"></param>
     /// <param name="loadFlags"></param>
     /// <returns></returns>
-    Task<bool> Any(Expression<Func<TValue, bool>> queryExpression,
-        LoadFlagsEnum loadFlags = LoadFlagsEnum.All
-        );
+    Task<bool> Any(Expression<Func<TValue, bool>> queryExpression);
 }

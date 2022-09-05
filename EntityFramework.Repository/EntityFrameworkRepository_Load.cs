@@ -18,7 +18,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
     where TValue : class
     where TKey : notnull
 {
-    public async Task<TValue> Load(TKey key, LoadFlagsEnum loadFlags)
+    public async Task<TValue> Load(TKey key)
     {
         var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
         using (var cancellationToken = new CancellationTokenSource(requestTimeout))
@@ -26,7 +26,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
             try
             {
                 TValue item = null;
-                if (!KeyedModel.IsKeyTuple)
+                if (!Model.IsKeyTuple)
                 {
                     item = await Set.FindAsync(key, cancellationToken.Token);
                 }
@@ -42,7 +42,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     throw new RepositoryExceptionObjectNotFound(userMsg, "");
                 }
 
-                LoadRelated(item, loadFlags);
+                //LoadRelated(item, LoadFlagsEnum.All);
                 return item;
             }
 
@@ -78,21 +78,23 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         }
     }
 
-    public async Task<ValuePageResult<TValue>> LoadAll(
+    public async Task<PageResult<TKey, TValue>> LoadAll(
         PageSelection pageSelection,
         Expression<Func<TValue, object>> orderExpression,
-        SortOrderEnum sortOrder,
-        LoadFlagsEnum loadFlags)
+        SortOrderEnum sortOrder)
     {
         var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
         using (var cancellationToken = new CancellationTokenSource(requestTimeout))
         {
             try
             {
-                var data = new List<TValue>();
+                var data = new Dictionary<TKey, TValue>();
 
                 var result = new List<TValue>();
-                var queryable = Queryable(loadFlags);
+                var queryable = Queryable(LoadFlagsEnum.All);
+                if (!TrackQueries)
+                    queryable = queryable.AsNoTracking();
+
                 if (queryable != null)
                 {
                     if (sortOrder == SortOrderEnum.Ascending)
@@ -115,7 +117,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 
                     foreach (var item in result)
                     {
-                        data.Add(item);
+                        data.Add(Model.GetKey(item), item);
                     }
 
                     var queryableCount = queryable.Count();
@@ -123,7 +125,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     //await LoadRelated(data, loadFlags);
 
                     //return Tuple.Create(queryableCount, data);
-                    return new ValuePageResult<TValue>(queryableCount, pageSelection.PageNumber, pageSelection.PageSize)
+                    return new PageResult<TKey, TValue>(queryableCount, pageSelection.PageNumber, pageSelection.PageSize)
                     {
                         Data = data
                     };
@@ -149,12 +151,12 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                 foreach (var item in set)
                 {
                     //LoadRelated(item, loadFlags);
-                    data.Add(item);
+                    data.Add(Model.GetKey(item), item);
                 }
 
                 var setCount = Set.Count();
                 //return Tuple.Create(setCount, data);
-                return new ValuePageResult<TValue>(setCount, pageSelection.PageNumber, pageSelection.PageSize)
+                return new PageResult<TKey, TValue>(setCount, pageSelection.PageNumber, pageSelection.PageSize)
                 {
                     Data = data
                 };

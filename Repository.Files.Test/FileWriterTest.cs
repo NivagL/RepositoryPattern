@@ -1,4 +1,8 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.Model;
 using Repository.Test.Model;
 using System;
 
@@ -8,12 +12,22 @@ namespace Repository.Files.Test
     [TestCategory("Integration")]
     public class FileWriterTest
     {
+        protected readonly DependencyBuilder DependencyBuilder;
+        protected readonly IConfiguration Configuration;
+        protected readonly ILoggerFactory LoggerFactory;
+        protected readonly IServiceCollection Services;
         private readonly IFileWriter<Guid, SimpleKeyTestModel> FileWriter;
-        //var fileWritter = new FileWriter<Guid, SimpleKeyTestModel>();
 
         public FileWriterTest()
         {
-            //FileWriter = new FileWriter()
+            DependencyBuilder = new DependencyBuilder();
+            Configuration = DependencyBuilder.Configuration;
+            Services = DependencyBuilder.Services;
+            LoggerFactory = new LoggerFactory();
+
+            FileWriter = new FileWriter<Guid, SimpleKeyTestModel>(
+                Configuration, LoggerFactory, 
+                    new SimpleKeyTestModelMeta(), "");
         }
 
         [TestMethod]

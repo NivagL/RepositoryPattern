@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository.Abstraction;
 using Repository.Test.Model;
 using System;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Repository.Test
             //Save one
             var id = Guid.NewGuid();
             var date = DateTime.UtcNow;
-            var save = await Repository.KeyedSave(
+            var save = await Repository.Save(
                 new CompositeKeyTestModel()
                 {
                     Id = id,
@@ -24,8 +25,7 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save.Item1.Item1 == id 
-                && save.Item1.Item2 == date);
+            Assert.IsTrue(save.Item2 == ChangeEnum.Added);
 
             //Check we can delete it
             var deleted = await Repository.Delete(Tuple.Create(id, date));
@@ -56,7 +56,7 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save);
+            Assert.IsTrue(save.Item2 == ChangeEnum.Added);
 
             //Check we can delete it - no keys so delete all
             var deleted = await Repository.DeleteAll();
@@ -81,7 +81,7 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save1);
+            Assert.IsTrue(save1.Item2 == ChangeEnum.Added);
 
             //Save another
             var id2 = Guid.NewGuid();
@@ -94,7 +94,7 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save2);
+            Assert.IsTrue(save2.Item2 == ChangeEnum.Added);
 
             var earliest = DateTime.UtcNow - new TimeSpan(0, 1, 0, 0);
             //Check we can delete it - no keys so delete all

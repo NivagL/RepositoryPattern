@@ -16,7 +16,7 @@ namespace Repository.Test
         {
             //Save one
             var id = Guid.NewGuid();
-            var save = await Repository.KeyedSave(
+            var save = await Repository.Save(
                 new SimpleKeyTestModel()
                 {
                     Id = id,
@@ -25,7 +25,7 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save.Item1 == id);
+            Assert.IsTrue(save.Item2 == ChangeEnum.Added);
 
             //Check we can load it
             var load = await Repository.Load(id);
@@ -74,14 +74,14 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save);
+            Assert.IsTrue(save.Item2 == ChangeEnum.Added);
 
             //Check we can load it - no keys so load all
             var load = await Repository.LoadAll(
                 new PageSelection() { PageSize = 10, PageNumber = 1 },
                 x => x.Date
             );
-            Assert.IsTrue(load.Data.Where(x => x.Id == id).Any());
+            Assert.IsTrue(load.Data.Where(x => x.Value.Id == id).Any());
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace Repository.Test
                     Processed = false
                 }
             );
-            Assert.IsTrue(save);
+            Assert.IsTrue(save.Item2 == ChangeEnum.Added);
 
             //Check we can load it
             var load = await Repository.LoadAll(
@@ -106,7 +106,7 @@ namespace Repository.Test
                 x => x.Date
                 );
 
-            Assert.IsTrue(load.Data.Where(x => x.Id == id).Any());
+            Assert.IsTrue(load.Data.Where(x => x.Value.Id == id).Any());
         }
     }
 }

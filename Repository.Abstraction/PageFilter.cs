@@ -25,6 +25,4 @@ public class PageFilter
         PageSize = 50,
         PageNumber = 1
     };
-
-    public bool KeydResults { get; set; }  = false;
 }
