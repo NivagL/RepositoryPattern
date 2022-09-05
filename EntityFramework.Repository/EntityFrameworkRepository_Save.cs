@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Repository.Abstraction;
-using Repository.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,65 +14,6 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
     where TValue : class
     where TKey : notnull
 {
-//    public async Task<Tuple<TKey, ChangeEnum>> Save(TValue value, bool replace)
-//    {
-//        var change = ChangeEnum.Updated;
-//        var key = default(TKey);
-//        if (Model.GetKey != null)
-//        {
-//            key = Model.GetKey(value);
-//        }
-//        TValue existing = null;
-//        try
-//        {
-//            if (!Model.IsKeyTuple)
-//            {
-//                existing = await Set.FindAsync(key);
-//            }
-//            else
-//            {
-//                var keys = new List<object>();
-//#pragma warning disable CS8604 // Possible null reference argument.
-//                keys.AddRange(TupleUtils.TupleToEnumerable(key));
-//#pragma warning restore CS8604 // Possible null reference argument.
-//                existing = await Set.FindAsync(keys.ToArray());
-//            }
-
-//            if (existing == null)
-//            {
-//                change = ChangeEnum.Added;
-//                await Set.AddAsync(value);
-//                await Context.SaveChangesAsync();
-//            }
-//            else
-//            {
-//                if (replace && (Model.Differ == null || Model.Differ(existing, value)))
-//                {
-//                    change = ChangeEnum.Updated;
-//                    if (Model.Assign != null)
-//                        Model.Assign(existing, value); //.Assign(value);
-//                    Set.Update(existing);
-//                    await Context.SaveChangesAsync();
-//                }
-//                else
-//                {
-//                    change = ChangeEnum.NoChange;
-//                }
-//            }
-//        }
-//        catch (Exception ex)
-//        {
-//            var userMsg = $"Repository could not save {typeof(TValue).Name} for key {key}";
-//            var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
-//            if(Logger.IsEnabled(LogLevel.Error))
-//                Logger.LogError($"{userMsg} - {msg}");
-
-//            throw new RepositoryException(userMsg, msg);
-//        }
-        
-//        return new Tuple<TKey, ChangeEnum>(key, change);
-//    }
-
     public async Task<IEnumerable<Tuple<TKey, ChangeEnum>>> Save(IEnumerable<TValue> values
         , bool replace = true, bool trackChanges = false)
     {
@@ -117,7 +57,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         {
             bool any = false;
             var key = Model.GetKey(value);
-            
+
             if (!replace || trackChanges)
                 any = await Any(key);
 
@@ -127,7 +67,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
             await Set.AddAsync(value);
             await Context.SaveChangesAsync();
 
-            var change = any ? ChangeEnum.Added : ChangeEnum.Updated;
+            var change = !any ? ChangeEnum.Added : ChangeEnum.Updated;
             return Tuple.Create(key, change);
         }
         catch (Exception ex)
@@ -139,24 +79,4 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
             throw new RepositoryException(userMsg, msg);
         }
     }
-
-    //public async Task<bool> SaveAll(IEnumerable<TValue> values,
-    //    bool replace)
-    //{
-    //    var changes = new List<ChangeEnum>();
-    //    try
-    //    {
-    //        Set.AddRange(values);
-    //        await Context.SaveChangesAsync();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        var userMsg = $"Repository could not save {typeof(TValue).Name} collection";
-    //        var msg = $"{ex.Message} {ex.StackTrace} {ex.InnerException?.ToString()}";
-    //        Logger.LogError($"{userMsg} - {msg}");
-
-    //        throw new RepositoryException(userMsg, msg);
-    //    }
-    //    return true;
-    //}
 }

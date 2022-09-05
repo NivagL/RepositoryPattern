@@ -20,15 +20,14 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 {
     public async Task<TValue> Load(TKey key)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
                 TValue item = null;
                 if (!Model.IsKeyTuple)
                 {
-                    item = await Set.FindAsync(key, cancellationToken.Token);
+                    item = await Set.FindAsync(new object[] { key }, cancellationToken.Token);
                 }
                 else
                 {
@@ -62,7 +61,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {
@@ -83,14 +82,13 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         Expression<Func<TValue, object>> orderExpression,
         SortOrderEnum sortOrder)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
                 var data = new Dictionary<TKey, TValue>();
-
                 var result = new List<TValue>();
+
                 var queryable = Queryable(LoadFlagsEnum.All);
                 if (!TrackQueries)
                     queryable = queryable.AsNoTracking();
@@ -170,7 +168,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {

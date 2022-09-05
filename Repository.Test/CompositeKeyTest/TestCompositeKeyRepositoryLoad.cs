@@ -61,7 +61,7 @@ namespace Repository.Test
         //}
 
         [TestMethod]
-        public async Task CompositKeyLoadValuesTest()
+        public async Task CompositKeyLoadTest()
         {
             //Delete them
             var delete = await Repository.DeleteAll();

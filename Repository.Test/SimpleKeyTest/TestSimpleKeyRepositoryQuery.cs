@@ -54,9 +54,10 @@ namespace Repository.Test
             Assert.IsTrue(save.Item2 == ChangeEnum.Added);
 
             //Check we can query it
-            var earliest = date - new TimeSpan(0, 1, 0, 0);
-            var load = await Repository.Load(id);
-            Assert.IsTrue(load.Id == id);
+            var query = await Repository.PagedQuery(
+                x => x.Id == id, x => x.Id, new PageFilter());
+            var any = query.Data.Values.Where(x => x.Id == id).Any();
+            Assert.IsTrue(any);
         }
     }
 }

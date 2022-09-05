@@ -58,7 +58,7 @@ namespace Repository.Test
         //}
 
         [TestMethod]
-        public async Task SimpleValueLoadTest()
+        public async Task SimpleLoadTest()
         {
             //Delete them
             var delete = await Repository.DeleteAll();
@@ -85,7 +85,7 @@ namespace Repository.Test
         }
 
         [TestMethod]
-        public async Task SimpleValuePageLoadTest()
+        public async Task SimplePageLoadTest()
         {
             //Save one
             var id = Guid.NewGuid();

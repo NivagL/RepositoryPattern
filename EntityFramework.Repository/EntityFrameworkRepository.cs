@@ -71,6 +71,23 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         return Context.Set<TValue>().Where(expression);
     }
 
+    public TimeSpan RequestTimeout
+    {
+        get 
+        {
+            if (string.IsNullOrEmpty(ConfigPath))
+            {
+                var configTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}:Timeout");
+                if (configTimeout != default(TimeSpan))
+                    return configTimeout;
+
+                return new TimeSpan(0, 0, 10);
+            }
+            else
+                return Configuration.GetValue<TimeSpan>($"{ConfigPath}:Timeout");
+        }
+    }
+
 //    public virtual void LoadRelated(
 //        TValue value, LoadFlagsEnum loadFlags)
 //    {

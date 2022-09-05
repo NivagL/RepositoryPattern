@@ -21,7 +21,7 @@ namespace SerialisedFile.Repository
             throw new NotImplementedException();
         }
 
-        public Task<int> DeleteQuery(Expression<Func<TValue, bool>> queryExpression)
+        public Task<int> DeleteQuery(Expression<Func<TValue, bool>> queryExpression, int chunks = 1000)
         {
             throw new NotImplementedException();
         }

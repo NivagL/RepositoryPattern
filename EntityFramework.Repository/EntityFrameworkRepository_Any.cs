@@ -19,8 +19,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 {
     public async Task<bool> Any()
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
@@ -35,7 +34,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {
@@ -53,25 +52,23 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 
     public async Task<bool> Any(TKey key)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
                 //does this load into memory or get evaluated on databse server?
                 //var item = await Set.AnyAsync(x => KeyedModel.KeysEqual(KeyedModel.GetKey(x), key));
 
-                TValue existing = null;
                 if (!Model.IsKeyTuple)
                 {
-                    existing = await Set.FindAsync(key);
+                    var existing = await Set.FindAsync(new object[] { key }, cancellationToken.Token);
                     return existing != null;
                 }
                 else
                 {
                     var keys = new List<object>();
                     keys.AddRange(TupleUtils.TupleToEnumerable(key));
-                    existing = await Set.FindAsync(keys.ToArray());
+                    var existing = await Set.FindAsync(keys.ToArray(), cancellationToken.Token);
                     return existing != null;
                 }
             }
@@ -84,7 +81,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {
@@ -102,8 +99,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 
     public async Task<bool> Any(Expression<Func<TValue, bool>> expression)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}:Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
@@ -122,7 +118,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {

@@ -20,21 +20,20 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 {
     public async Task<TValue> Delete(TKey key)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
                 TValue existing = null;
                 if (!Model.IsKeyTuple)
                 {
-                    existing = await Set.FindAsync(key);
+                    existing = await Set.FindAsync(new object[] { key }, cancellationToken.Token);
                 }
                 else
                 {
                     var keys = new List<object>();
                     keys.AddRange(TupleUtils.TupleToEnumerable(key));
-                    existing = await Set.FindAsync(keys.ToArray());
+                    existing = await Set.FindAsync(keys.ToArray(), cancellationToken.Token);
                 }
                 if (existing != null)
                 {
@@ -54,7 +53,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {
@@ -72,13 +71,12 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
 
     public async Task<int> DeleteAll(int chunks = 1000)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
                 var count = 0;
-                while (await Set.AnyAsync())
+                while (await Set.AnyAsync(cancellationToken.Token))
                 {
                     var chunk = await Set.Take(chunks).ToListAsync();
                     Set.RemoveRange(chunk);
@@ -96,7 +94,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {
@@ -112,21 +110,21 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
         }
     }
 
-    public async Task<int> DeleteQuery(Expression<Func<TValue, bool>> expression)
+    public async Task<int> DeleteQuery(Expression<Func<TValue, bool>> expression
+        , int chunks = 1000)
     {
-        var requestTimeout = Configuration.GetValue<TimeSpan>($"{ConfigPath}Timeout");
-        using (var cancellationToken = new CancellationTokenSource(requestTimeout))
+        using (var cancellationToken = new CancellationTokenSource(RequestTimeout))
         {
             try
             {
-                var set = Set.Where(expression).ToList();
                 var count = 0;
+                var set = Set.Where(expression).Take(chunks).ToList();
                 while (set.Any())
                 {
-                    var chunk = await Set.Take(1000).ToListAsync();
-                    Set.RemoveRange(chunk);
+                    Set.RemoveRange(set);
                     await Context.SaveChangesAsync(cancellationToken.Token);
-                    count += chunk.Count;
+                    count += set.Count();
+                    set = Set.Where(expression).Take(chunks).ToList();
                 }
                 return count;
             }
@@ -139,7 +137,7 @@ public partial class EntityFrameworkRepository<TContext, TKey, TValue>
                     Logger.LogError($"{userMsg}/{systemMsg}");
 
                 throw new RepositoryExceptionTimeout(
-                    userMsg, systemMsg, requestTimeout);
+                    userMsg, systemMsg, RequestTimeout);
             }
             catch (Exception ex)
             {
