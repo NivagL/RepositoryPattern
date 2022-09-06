@@ -1,7 +1,7 @@
 ﻿using EntityFramework.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using Model.Abstraction;
 using Repository.Abstraction;
-using Repository.Model;
 using Repository.Test.Model;
 using System;
 
@@ -17,11 +17,11 @@ namespace Repository.Test
             var model = new ModelFactory<Tuple<Guid, DateTime>, CompositeKeyTestModel>(new CompositeKeyTestModelMeta());
             model.RegisterTypes(Services);
 
-            var repositorylogger = DependencyBuilder.Logger<RepositoryFactory<CompositeKeyTestContext, Tuple<Guid, DateTime>, CompositeKeyTestModel>>();
+            var repositorylogger = UtilityBuilder.Logger<RepositoryFactory<CompositeKeyTestContext, Tuple<Guid, DateTime>, CompositeKeyTestModel>>();
             var repository = new RepositoryFactory<CompositeKeyTestContext, Tuple<Guid, DateTime>, CompositeKeyTestModel>(Configuration, repositorylogger);
             repository.RegisterTypes(Services);
 
-            var provider = DependencyBuilder.Provider;
+            var provider = UtilityBuilder.Provider;
             Repository = provider.GetRequiredService<IRepository<Tuple<Guid, DateTime>, CompositeKeyTestModel>>();
         }
     }

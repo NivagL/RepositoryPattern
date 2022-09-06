@@ -17,10 +17,10 @@ public interface IRepositoryLoad<TKey, TValue>
     /// <param name="orderExpression"></param>
     /// <param name="loadFlags"></param>
     /// <returns></returns>
-    Task<PageResult<TKey, TValue>> LoadAll(
-        PageSelection pageSelection,
-        Expression<Func<TValue, object>> orderExpression,
-        SortOrderEnum sortOrder = SortOrderEnum.Ascending);
+    Task<PageResult<TKey, TValue>> LoadAll(PageSelection pageSelection
+        , Expression<Func<TValue, object>> orderExpression
+        , SortOrderEnum sortOrder = SortOrderEnum.Ascending
+        );
 
     /// <summary>
     /// Load a single entity identified by the key

@@ -1,4 +1,4 @@
-﻿namespace Repository.Model;
+﻿namespace Model.Abstraction;
 
 /// <summary>
 /// Data difference, keys may be equal

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Repository.Model;
 using System.Threading.Tasks;
 
 namespace Repository.Test
@@ -16,7 +15,7 @@ namespace Repository.Test
         [TestMethod]
         public async Task CreateCompositKeyDatabaseTest()
         {
-            var provider = DependencyBuilder.Provider;
+            var provider = UtilityBuilder.Provider;
             var init = await DatabaseInitialiser.InitialiseDatabase(provider);
             Assert.IsTrue(init);
         }

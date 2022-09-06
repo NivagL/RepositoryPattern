@@ -1,4 +1,4 @@
-﻿namespace Repository.Serialiser;
+﻿namespace Model.Serialiser;
 
 public class LongSerialiser : ISerialiser<long>
 {

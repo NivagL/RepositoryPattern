@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Repository.Model;
+namespace Model.Abstraction;
 
 public class ModelFactory<TKey, TValue>
     : IModelFactory<TKey, TValue>

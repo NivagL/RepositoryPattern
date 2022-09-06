@@ -5,27 +5,19 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.Repository", "EntityFramework.Repository\EntityFramework.Repository.csproj", "{8723C782-0D06-4C63-8957-EF2FC512DA21}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Expressions", "Repository.Expressions\Repository.Expressions.csproj", "{47D93752-3A2A-456C-B7A2-47CE11DCCC1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Query.Expressions", "Repository.Expressions\Query.Expressions.csproj", "{47D93752-3A2A-456C-B7A2-47CE11DCCC1B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Abstraction", "Repository.Abstraction\Repository.Abstraction.csproj", "{3F57B109-A40A-4C73-B63D-A684E671AF2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Expressions.Test", "Repository.Expresssions.Test\Repository.Expressions.Test.csproj", "{2DA05A66-73F3-4C9F-B101-75C3F498FD0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Query.Expressions.Test", "Repository.Expresssions.Test\Query.Expressions.Test.csproj", "{2DA05A66-73F3-4C9F-B101-75C3F498FD0B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Test", "Repository.Test\Repository.Test.csproj", "{6B74DC98-F367-41DA-962E-DD7FE800E473}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Model", "Repository.Model\Repository.Model.csproj", "{9C6774D1-F864-48C8-B6C7-91F24B60948B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Abstraction", "Repository.Model\Model.Abstraction.csproj", "{9C6774D1-F864-48C8-B6C7-91F24B60948B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageFile.Repository", "File.Repository\StorageFile.Repository.csproj", "{9650CEF8-5898-49AE-B5BF-24C6FD246CFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Serialiser", "Repository.Serialiser\Model.Serialiser.csproj", "{868C92E8-D184-449B-A3B7-899589E217C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Serialiser", "Repository.Serialiser\Repository.Serialiser.csproj", "{868C92E8-D184-449B-A3B7-899589E217C4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Files", "Repository.Files\Repository.Files.csproj", "{A8CD1DA8-EA81-42AE-B059-D19B1C22737E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmoDB.Repository", "Cosmo.Repository\CosmoDB.Repository.csproj", "{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Files.Test", "Repository.Files.Test\Repository.Files.Test.csproj", "{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Test.Model", "Repository.Test.Model\Repository.Test.Model.csproj", "{D910B814-1AD4-4596-8933-3F9A19258434}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration.Utility", "Configuration.Utility\Configuration.Utility.csproj", "{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,30 +49,14 @@ Global
 		{9C6774D1-F864-48C8-B6C7-91F24B60948B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C6774D1-F864-48C8-B6C7-91F24B60948B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C6774D1-F864-48C8-B6C7-91F24B60948B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9650CEF8-5898-49AE-B5BF-24C6FD246CFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9650CEF8-5898-49AE-B5BF-24C6FD246CFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9650CEF8-5898-49AE-B5BF-24C6FD246CFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9650CEF8-5898-49AE-B5BF-24C6FD246CFA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{868C92E8-D184-449B-A3B7-899589E217C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{868C92E8-D184-449B-A3B7-899589E217C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{868C92E8-D184-449B-A3B7-899589E217C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{868C92E8-D184-449B-A3B7-899589E217C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8CD1DA8-EA81-42AE-B059-D19B1C22737E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8CD1DA8-EA81-42AE-B059-D19B1C22737E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8CD1DA8-EA81-42AE-B059-D19B1C22737E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8CD1DA8-EA81-42AE-B059-D19B1C22737E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3B9FB63-4095-43A5-8BEC-C5FF5E9DE29B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7084AC30-0DE7-4A5D-A340-80DC74BC2F56}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D910B814-1AD4-4596-8933-3F9A19258434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D910B814-1AD4-4596-8933-3F9A19258434}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D910B814-1AD4-4596-8933-3F9A19258434}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D910B814-1AD4-4596-8933-3F9A19258434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

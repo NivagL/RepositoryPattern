@@ -1,4 +1,4 @@
-﻿namespace Repository.Model;
+﻿namespace Model.Abstraction;
 
 /// <summary>
 /// Register this interface for a model class

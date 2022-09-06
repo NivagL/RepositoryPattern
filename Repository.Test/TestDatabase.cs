@@ -1,37 +1,37 @@
-﻿using EntityFramework.Repository;
+﻿using Configuration.Utility;
+using EntityFramework.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Abstraction;
-using Repository.Model;
 
 namespace Repository.Test
 {
     public class TestDatabase<TContext>
         where TContext : DbContext
     {
-        protected readonly DependencyBuilder DependencyBuilder;
+        protected readonly UtilityBuilder UtilityBuilder;
         protected readonly IConfiguration Configuration;
         protected readonly IServiceCollection Services;
         protected readonly IDatabaseInitialiser DatabaseInitialiser;
 
         public TestDatabase(string configPath)
         {
-            DependencyBuilder = new DependencyBuilder()
+            UtilityBuilder = new UtilityBuilder()
             {
                 ConfigurationFolder = configPath
             };
-            Configuration = DependencyBuilder.Configuration;
-            Services = DependencyBuilder.Services;
-            var provider = DependencyBuilder.Provider;
+            Configuration = UtilityBuilder.Configuration;
+            Services = UtilityBuilder.Services;
+            var provider = UtilityBuilder.Provider;
             var configurationValuePolicy = provider.GetRequiredService<IConfigurationValuePolicy>();
 
-            var contextlogger = DependencyBuilder.Logger<IContextFactory>();
+            var contextlogger = UtilityBuilder.Logger<IContextFactory>();
             var context = new ContextFactory<TContext>(
                 Configuration, contextlogger, configurationValuePolicy);
             context.RegisterTypes(Services);
 
-            var databaselogger = DependencyBuilder.Logger<IDatabaseInitialiser>();
+            var databaselogger = UtilityBuilder.Logger<IDatabaseInitialiser>();
             DatabaseInitialiser = new DatabaseInitialiser<TContext>(
                 Configuration, databaselogger, configurationValuePolicy);
         }

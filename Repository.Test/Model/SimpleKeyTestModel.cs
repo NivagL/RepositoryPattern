@@ -1,4 +1,4 @@
-﻿using Repository.Model;
+﻿using Model.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

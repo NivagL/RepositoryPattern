@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Configuration.Utility;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.Abstraction;
-using Repository.Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +29,7 @@ public class OrderExpressionBuilderTests
 
     public OrderExpressionBuilderTests()
     {
-        var dependencyBuilder = new DependencyBuilder();
+        var dependencyBuilder = new UtilityBuilder();
         Configuration = dependencyBuilder.Configuration;
         TestModelOrderingLogger = dependencyBuilder.Logger<OrderExpressionBuilder<OrderingBuilderTestModel>>();
     }

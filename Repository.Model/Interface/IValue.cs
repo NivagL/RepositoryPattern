@@ -1,6 +1,6 @@
-﻿using Repository.Serialiser;
+﻿using Model.Serialiser;
 
-namespace Repository.Model;
+namespace Model.Abstraction;
 
 /// <summary>
 /// Operations that apply to a model

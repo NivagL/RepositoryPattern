@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Repository.Serialiser;
+namespace Model.Serialiser;
 
 public class ShallowJsonSerialiser<T> : ISerialiser<T>
 {

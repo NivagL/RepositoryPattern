@@ -2,20 +2,20 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Repository.Model;
+namespace Configuration.Utility;
 
-public class DependencyBuilder
+public class UtilityBuilder
 {
     public string ConfigurationFolder { get; set; } = string.Empty;
     public IServiceCollection Services { get; } = new ServiceCollection();
 
-    public DependencyBuilder()
+    public UtilityBuilder()
     {
         //Order is very important here
 
         Services.AddSingleton<IConfigurationFilePolicy>(_ =>
         {
-            var filePolicy = new ConfigurationFilePolicy();
+            var filePolicy = new ConfigurationFilePolicy(ConfigurationFilePolicyEnum.CommonFiles);
             filePolicy.Directory = $"{filePolicy.Directory}{ConfigurationFolder}\\";
             return filePolicy;
         });

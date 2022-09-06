@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repository.Serialiser\Repository.Serialiser.csproj" />
+    <ProjectReference Include="..\Repository.Serialiser\Model.Serialiser.csproj" />
   </ItemGroup>
 
 </Project>

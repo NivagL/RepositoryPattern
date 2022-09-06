@@ -1,7 +1,6 @@
-﻿using Repository.Serialiser;
-using Repository.Utils;
+﻿using Model.Serialiser;
 
-namespace Repository.Model;
+namespace Model.Abstraction;
 
 public class DefaultKeyModel<TKey, TValue> 
     : DefaultValueModel<TValue>

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Serialization;
 
-namespace Repository.Serialiser;
+namespace Model.Serialiser;
 
 public class JsonLowercaseSerializer : DefaultContractResolver
 {

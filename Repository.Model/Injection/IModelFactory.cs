@@ -1,4 +1,4 @@
-﻿namespace Repository.Model;
+﻿namespace Model.Abstraction;
 
 public interface IModelFactory<TKey, TValue>
 {

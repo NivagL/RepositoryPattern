@@ -1,4 +1,4 @@
-﻿namespace Repository.Utils;
+﻿namespace Model.Abstraction;
 
 public static class TupleUtils
 {

@@ -1,4 +1,4 @@
-﻿using Repository.Model;
+﻿using Model.Abstraction;
 using System;
 
 namespace Repository.Test.Model;

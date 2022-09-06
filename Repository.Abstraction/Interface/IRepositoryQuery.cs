@@ -18,7 +18,8 @@ public interface IRepositoryQuery<TKey, TValue>
     /// <param name="loadFlags"></param>
     /// <returns></returns>
     Task<PageResult<TKey, TValue>> PagedQuery(
-        Expression<Func<TValue, bool>> queryExpression,
-        Expression<Func<TValue, object>> orderExpression,
-        PageFilter pageFilter);
+        Expression<Func<TValue, bool>> queryExpression
+        , Expression<Func<TValue, object>> orderExpression
+        , PageFilter pageFilter
+        );
 }

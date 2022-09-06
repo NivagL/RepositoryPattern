@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Model.Abstraction;
 using Repository.Abstraction;
-using Repository.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

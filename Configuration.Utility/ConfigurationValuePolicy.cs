@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Repository.Model;
+namespace Configuration.Utility;
 
 public class ConfigurationValuePolicy : IConfigurationValuePolicy
 {

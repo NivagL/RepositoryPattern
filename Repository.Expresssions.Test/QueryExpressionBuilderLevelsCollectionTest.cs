@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Configuration.Utility;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Repository.Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,7 +39,7 @@ public class QueryExpressionBuilderLevelsCollectionTest
 
     public QueryExpressionBuilderLevelsCollectionTest()
     {
-        var dependencyBuilder = new DependencyBuilder();
+        var dependencyBuilder = new UtilityBuilder();
         Configuration = dependencyBuilder.Configuration;
         Logger = dependencyBuilder.Logger<IQueryExpressionBuilder<Level1>>();
     }

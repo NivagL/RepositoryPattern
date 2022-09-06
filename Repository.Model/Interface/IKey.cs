@@ -1,6 +1,6 @@
-﻿using Repository.Serialiser;
+﻿using Model.Serialiser;
 
-namespace Repository.Model;
+namespace Model.Abstraction;
 
 /// <summary>
 /// Given a model class, these lamdas define the operations available for the models key

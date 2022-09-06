@@ -29,5 +29,6 @@ public interface IRepositoryDelete<TKey, TValue>
     /// <param name="queryExpression"></param>
     /// <returns>Number of deleted items</returns>
     Task<int> DeleteQuery(Expression<Func<TValue, bool>> queryExpression
-        , int chunks = 1000);
+        , int chunks = 1000
+        );
 }

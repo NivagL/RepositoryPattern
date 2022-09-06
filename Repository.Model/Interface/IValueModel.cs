@@ -1,4 +1,4 @@
-﻿namespace Repository.Model;
+﻿namespace Model.Abstraction;
 
 /// <summary>
 /// Use this if the class has no 'key' and only a value

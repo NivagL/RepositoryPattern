@@ -1,4 +1,4 @@
-﻿namespace Repository.Model;
+﻿namespace Configuration.Utility;
 
 public interface IConfigurationValuePolicy
 {

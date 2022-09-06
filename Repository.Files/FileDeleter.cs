@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Repository.Model;
+using Model.Abstraction;
 using System.Linq.Expressions;
 
 namespace Repository.Files;

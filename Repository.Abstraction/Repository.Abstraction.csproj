@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repository.Model\Repository.Model.csproj" />
+    <ProjectReference Include="..\Repository.Model\Model.Abstraction.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
 
-namespace Repository.Serialiser;
+namespace Model.Serialiser;
 
 public class CustomJsonTextWriter : JsonTextWriter
 {

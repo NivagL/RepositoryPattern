@@ -1,6 +1,6 @@
-﻿using Repository.Serialiser;
+﻿using Model.Serialiser;
 
-namespace Repository.Model;
+namespace Model.Abstraction;
 
 public class StringKeyModel<TValue> : DefaultKeyModel<string, TValue>
 {

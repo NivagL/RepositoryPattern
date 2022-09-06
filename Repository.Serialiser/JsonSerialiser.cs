@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace Repository.Serialiser;
+namespace Model.Serialiser;
+
 public class JsonSerialiser<T> : ISerialiser<T>
 {
     public JsonSerializerSettings Settings { get; private set; }

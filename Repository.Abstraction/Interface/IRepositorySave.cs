@@ -14,7 +14,8 @@ public interface IRepositorySave<TKey, TValue>
     /// <param name="replace"></param>
     /// <returns></returns>
     Task<IEnumerable<Tuple<TKey, ChangeEnum>>> Save(IEnumerable<TValue> values
-        , bool replace = true, bool trackChanges = false);
+        , bool replace = true, bool trackChanges = false
+        );
 
     /// <summary>
     /// Save a value and return the status
@@ -23,5 +24,6 @@ public interface IRepositorySave<TKey, TValue>
     /// <param name="replace"></param>
     /// <returns></returns>
     Task<Tuple<TKey, ChangeEnum>> Save(TValue value
-        , bool replace = true, bool trackChanges = false);
+        , bool replace = true, bool trackChanges = false
+        );
 }

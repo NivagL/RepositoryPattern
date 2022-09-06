@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Repository.Serialiser;
+namespace Model.Serialiser;
 
 public static class StringListExtensions
 {

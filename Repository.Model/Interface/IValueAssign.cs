@@ -1,4 +1,4 @@
-﻿namespace Repository.Model;
+﻿namespace Model.Abstraction;
 
 /// <summary>
 /// Given an object assign it's values from another

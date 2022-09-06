@@ -1,7 +1,7 @@
 ﻿using EntityFramework.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using Model.Abstraction;
 using Repository.Abstraction;
-using Repository.Model;
 using Repository.Test.Model;
 using System;
 
@@ -17,11 +17,11 @@ namespace Repository.Test
             var model = new ModelFactory<Guid, SimpleKeyTestModel>(new SimpleKeyTestModelMeta());
             model.RegisterTypes(Services);
 
-            var repositorylogger = DependencyBuilder.Logger<RepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>>();
+            var repositorylogger = UtilityBuilder.Logger<RepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>>();
             var repository = new RepositoryFactory<SimpleKeyTestContext, Guid, SimpleKeyTestModel>(Configuration, repositorylogger);
             repository.RegisterTypes(Services);
 
-            var provider = DependencyBuilder.Provider;
+            var provider = UtilityBuilder.Provider;
             Repository = provider.GetRequiredService<IRepository<Guid, SimpleKeyTestModel>>();
         }
     }
