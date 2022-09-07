@@ -2,8 +2,8 @@
 
 public enum ConfigurationFilePolicyEnum
 {
-    AllInDirectory,
-    EnvironmentFiles,
-    PatternMatched,
-    CommonFiles
+    Directory,
+    Environment,
+    Pattern,
+    Common
 }

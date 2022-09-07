@@ -23,7 +23,7 @@ public class ConfigurationFilePolicy : IConfigurationFilePolicy
             var candidateFiles = new List<string>();
             switch (FilePolicy)
             {
-                case (ConfigurationFilePolicyEnum.CommonFiles):
+                case (ConfigurationFilePolicyEnum.Common):
                     return new List<string>()
                     {
                         $"{Directory}settings.json",

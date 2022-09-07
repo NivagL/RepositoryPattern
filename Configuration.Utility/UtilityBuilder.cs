@@ -15,7 +15,7 @@ public class UtilityBuilder
 
         Services.AddSingleton<IConfigurationFilePolicy>(_ =>
         {
-            var filePolicy = new ConfigurationFilePolicy(ConfigurationFilePolicyEnum.CommonFiles);
+            var filePolicy = new ConfigurationFilePolicy(ConfigurationFilePolicyEnum.Common);
             filePolicy.Directory = $"{filePolicy.Directory}{ConfigurationFolder}\\";
             return filePolicy;
         });

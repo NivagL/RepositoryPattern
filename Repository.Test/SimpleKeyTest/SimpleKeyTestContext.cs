@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Repository.Test.Model;
+using Test.Model;
 
 namespace Repository.Test;
 public class SimpleKeyTestContext : DbContext
 {
-    public DbSet<SimpleKeyTestModel> TestModel { get; set; }
+    public DbSet<SimpleGuidModel> TestModel { get; set; }
 
     public SimpleKeyTestContext(DbContextOptions<SimpleKeyTestContext> options)
         : base(options)
@@ -13,8 +13,8 @@ public class SimpleKeyTestContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<SimpleKeyTestModel>().ToTable("SimpleKeyTestModel");
-        modelBuilder.Entity<SimpleKeyTestModel>().HasKey(x => x.Id);
-        modelBuilder.Entity<SimpleKeyTestModel>().Property(x => x.Id).ValueGeneratedNever();
+        modelBuilder.Entity<SimpleGuidModel>().ToTable("SimpleKeyTestModel");
+        modelBuilder.Entity<SimpleGuidModel>().HasKey(x => x.Id);
+        modelBuilder.Entity<SimpleGuidModel>().Property(x => x.Id).ValueGeneratedNever();
     }
 }

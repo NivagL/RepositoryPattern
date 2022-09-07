@@ -1,20 +1,17 @@
-﻿using Model.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Repository.Test.Model;
+namespace Test.Model;
 
-public class SimpleKeyTestModel 
-    : IEqualityComparer<SimpleKeyTestModel>
-    , IEquatable<SimpleKeyTestModel>
+public class CompositeKeyModel
+    : IEqualityComparer<CompositeKeyModel>
+    , IEquatable<CompositeKeyModel>
 {
     public Guid Id { get; set; } = Guid.Empty;
     public DateTime Date { get; set; } = DateTime.MinValue;
     public bool Processed { get; set; } = false;
     public string Description { get; set; } = String.Empty;
 
-    public bool Equals(SimpleKeyTestModel x, SimpleKeyTestModel y)
+    public bool Equals(CompositeKeyModel x, CompositeKeyModel y)
     {
         if (ReferenceEquals(x, null))
             return false;
@@ -25,10 +22,11 @@ public class SimpleKeyTestModel
         if (ReferenceEquals(x, y))
             return true;
 
-        return x.Id == y.Id;
+        return x.Id == y.Id
+            && x.Date == y.Date;
     }
 
-    public bool Equals(SimpleKeyTestModel other)
+    public bool Equals(CompositeKeyModel other)
     {
         if (ReferenceEquals(other, null))
             return false;
@@ -36,15 +34,17 @@ public class SimpleKeyTestModel
         if (ReferenceEquals(this, other))
             return true;
 
-        return Id == other.Id;
+        return Id == other.Id
+            && Date == other.Date;
     }
 
-    public int GetHashCode([DisallowNull] SimpleKeyTestModel obj)
+    public int GetHashCode([DisallowNull] CompositeKeyModel obj)
     {
-        return obj.Id.GetHashCode();
+        var tuple = Tuple.Create(obj.Id, obj.Date);
+        return tuple.GetHashCode();
     }
 
-    public static bool operator ==(SimpleKeyTestModel x, SimpleKeyTestModel y)
+    public static bool operator ==(CompositeKeyModel x, CompositeKeyModel y)
     {
         if (ReferenceEquals(x, null))
             return false;
@@ -55,10 +55,11 @@ public class SimpleKeyTestModel
         if (ReferenceEquals(x, y))
             return true;
 
-        return x.Id == y.Id;
+        return x.Id == y.Id
+            && x.Date == y.Date;
     }
 
-    public static bool operator !=(SimpleKeyTestModel x, SimpleKeyTestModel y)
+    public static bool operator !=(CompositeKeyModel x, CompositeKeyModel y)
     {
         if (ReferenceEquals(x, null))
             return true;
@@ -69,7 +70,8 @@ public class SimpleKeyTestModel
         if (ReferenceEquals(x, y))
             return false;
 
-        return x.Id != y.Id;
+        return x.Id != y.Id
+            || x.Date != y.Date;
     }
 
     public override bool Equals(object obj)
@@ -80,15 +82,17 @@ public class SimpleKeyTestModel
         if (ReferenceEquals(obj, null))
             return false;
 
-        var other = obj as SimpleKeyTestModel;
+        var other = obj as CompositeKeyModel;
         if (other is null)
             return false;
-        else
-            return Id == other.Id;
+
+        return Id == other.Id
+            && Date == other.Date;
     }
 
     public override int GetHashCode()
     {
-        return Id.GetHashCode();
+        var tuple = Tuple.Create(Id, Date);
+        return tuple.GetHashCode();
     }
 }

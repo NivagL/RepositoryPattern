@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.Abstraction;
-using Repository.Test.Model;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
+using Test.Model;
 
 namespace Repository.Test
 {
@@ -18,7 +17,7 @@ namespace Repository.Test
             var id = Guid.NewGuid();
             var date = DateTime.UtcNow;
             var save = await Repository.Save(
-                new CompositeKeyTestModel()
+                new CompositeKeyModel()
                 {
                     Id = id,
                     Date = date,
@@ -45,7 +44,7 @@ namespace Repository.Test
             var id = Guid.NewGuid();
             var date = DateTime.UtcNow;
             var save = await Repository.Save(
-                new CompositeKeyTestModel()
+                new CompositeKeyModel()
                 {
                     Id = id,
                     Date = date,

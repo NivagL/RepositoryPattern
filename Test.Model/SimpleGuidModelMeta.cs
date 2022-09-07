@@ -1,15 +1,14 @@
 ﻿using Model.Abstraction;
-using System;
 
-namespace Repository.Test.Model;
+namespace Test.Model;
 
-public class CompositeKeyTestModelMeta 
-    : DefaultKeyModel<Tuple<Guid, DateTime>, CompositeKeyTestModel>
+public class SimpleGuidModelMeta 
+    : GuidKeyModel<SimpleGuidModel>
 {
-    public CompositeKeyTestModelMeta()
+    public SimpleGuidModelMeta()
     {
-        GetKey = x => Tuple.Create(x.Id, x.Date);
-        SetKey = (x, y) => { x.Id = y.Item1; x.Date = y.Item2; };
+        GetKey = x => x.Id;
+        SetKey = (x, y) => x.Id = y;
         
         Assign = (x, y) =>
         {

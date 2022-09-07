@@ -2,27 +2,27 @@
 using Microsoft.Extensions.DependencyInjection;
 using Model.Abstraction;
 using Repository.Abstraction;
-using Repository.Test.Model;
 using System;
+using Test.Model;
 
 namespace Repository.Test
 {
     public class TestCompositeKeyRepository : TestRepository<CompositeKeyTestContext>
     {
-        protected readonly IRepository<Tuple<Guid, DateTime>, CompositeKeyTestModel> Repository;
+        protected readonly IRepository<Tuple<Guid, DateTime>, CompositeKeyModel> Repository;
 
         public TestCompositeKeyRepository()
             : base("CompositeKeyTest")
         {
-            var model = new ModelFactory<Tuple<Guid, DateTime>, CompositeKeyTestModel>(new CompositeKeyTestModelMeta());
+            var model = new ModelFactory<Tuple<Guid, DateTime>, CompositeKeyModel>(new CompositeKeyModelMeta());
             model.RegisterTypes(Services);
 
-            var repositorylogger = UtilityBuilder.Logger<RepositoryFactory<CompositeKeyTestContext, Tuple<Guid, DateTime>, CompositeKeyTestModel>>();
-            var repository = new RepositoryFactory<CompositeKeyTestContext, Tuple<Guid, DateTime>, CompositeKeyTestModel>(Configuration, repositorylogger);
+            var repositorylogger = UtilityBuilder.Logger<RepositoryFactory<CompositeKeyTestContext, Tuple<Guid, DateTime>, CompositeKeyModel>>();
+            var repository = new RepositoryFactory<CompositeKeyTestContext, Tuple<Guid, DateTime>, CompositeKeyModel>(Configuration, repositorylogger);
             repository.RegisterTypes(Services);
 
             var provider = UtilityBuilder.Provider;
-            Repository = provider.GetRequiredService<IRepository<Tuple<Guid, DateTime>, CompositeKeyTestModel>>();
+            Repository = provider.GetRequiredService<IRepository<Tuple<Guid, DateTime>, CompositeKeyModel>>();
         }
     }
 }

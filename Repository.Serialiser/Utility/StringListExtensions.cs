@@ -2,7 +2,7 @@
 
 namespace Model.Serialiser;
 
-public static class StringListExtensions
+internal static class StringListExtensions
 {
     public static List<T> ToListEx<T>(this string x, string delimiter)
     {

@@ -32,8 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EntityFramework.Repository\EntityFramework.Repository.csproj" />
-    <ProjectReference Include="..\Repository.Abstraction\Repository.Abstraction.csproj" />
-    <ProjectReference Include="..\Repository.Model\Model.Abstraction.csproj" />
+    <ProjectReference Include="..\Test.Model\Test.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

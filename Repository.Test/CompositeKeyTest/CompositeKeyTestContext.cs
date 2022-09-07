@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Repository.Test.Model;
+using Test.Model;
 
 namespace Repository.Test;
 public class CompositeKeyTestContext : DbContext
 {
-    public DbSet<CompositeKeyTestModel> TestModel { get; set; }
+    public DbSet<CompositeKeyModel> TestModel { get; set; }
 
     public CompositeKeyTestContext(DbContextOptions<CompositeKeyTestContext> options)
         : base(options)
@@ -13,8 +13,8 @@ public class CompositeKeyTestContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CompositeKeyTestModel>().ToTable("CompositeKeyTestModel");
-        modelBuilder.Entity<CompositeKeyTestModel>().HasKey(x => new { x.Id, x.Date });
-        modelBuilder.Entity<CompositeKeyTestModel>().Property(x => x.Id).ValueGeneratedNever();
+        modelBuilder.Entity<CompositeKeyModel>().ToTable("CompositeKeyTestModel");
+        modelBuilder.Entity<CompositeKeyModel>().HasKey(x => new { x.Id, x.Date });
+        modelBuilder.Entity<CompositeKeyModel>().Property(x => x.Id).ValueGeneratedNever();
     }
 }
