@@ -38,17 +38,17 @@ public class Parent2
 public class QueryExpressionBuilderGrandChildTest
 {
     public IConfiguration Configuration { get; private set; }
-    public ILogger<IQueryExpressionBuilder<Parent2>> Logger { get; private set; }
+    public ILogger<IQueryExpression<Parent2>> Logger { get; private set; }
     public List<Parent2> Parents { get; private set; }
     public List<QueryObject> Query1 { get; private set; }
     public List<QueryObject> Query2 { get; private set; }
-    public IQueryExpressionBuilder<Parent2> Builder { get; private set; }
+    public IQueryExpression<Parent2> Builder { get; private set; }
 
     public QueryExpressionBuilderGrandChildTest()
     {
         var dependencyBuilder = new UtilityBuilder();
         Configuration = dependencyBuilder.Configuration;
-        Logger = dependencyBuilder.Logger<IQueryExpressionBuilder<Parent2>>();
+        Logger = dependencyBuilder.Logger<IQueryExpression<Parent2>>();
     }
 
     [TestInitialize]
@@ -99,7 +99,7 @@ public class QueryExpressionBuilderGrandChildTest
             },
         };
 
-        Builder = new QueryExpressionBuilder<Parent2>(Configuration, Logger);
+        Builder = new QueryExpression<Parent2>(Configuration, Logger);
     }
 
     [TestMethod]
@@ -113,7 +113,7 @@ public class QueryExpressionBuilderGrandChildTest
         }
         catch { }
 
-        var expression = Builder.CreateExpression(Query1);
+        var expression = Builder.Create(Query1);
         var testList = Parents.Where(expression.Compile());
 
         try

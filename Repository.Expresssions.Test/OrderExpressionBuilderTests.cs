@@ -23,21 +23,21 @@ public class OrderingBuilderTestModel
 public class OrderExpressionBuilderTests
 {
     public IConfiguration Configuration { get; private set; }
-    public ILogger<OrderExpressionBuilder<OrderingBuilderTestModel>> TestModelOrderingLogger { get; private set; }
-    public IOrderExpressionBuilder<OrderingBuilderTestModel> OrderExpressionBuilder { get; private set; }
+    public ILogger<OrderExpression<OrderingBuilderTestModel>> TestModelOrderingLogger { get; private set; }
+    public IOrderExpression<OrderingBuilderTestModel> OrderExpressionBuilder { get; private set; }
     public IEnumerable<OrderingBuilderTestModel> Model { get; private set; }
 
     public OrderExpressionBuilderTests()
     {
         var dependencyBuilder = new UtilityBuilder();
         Configuration = dependencyBuilder.Configuration;
-        TestModelOrderingLogger = dependencyBuilder.Logger<OrderExpressionBuilder<OrderingBuilderTestModel>>();
+        TestModelOrderingLogger = dependencyBuilder.Logger<OrderExpression<OrderingBuilderTestModel>>();
     }
 
     [TestInitialize]
     public void SetUp()
     {
-        OrderExpressionBuilder = new OrderExpressionBuilder<OrderingBuilderTestModel>(
+        OrderExpressionBuilder = new OrderExpression<OrderingBuilderTestModel>(
             Configuration, TestModelOrderingLogger);
 
         Model = new List<OrderingBuilderTestModel>()
@@ -69,7 +69,7 @@ public class OrderExpressionBuilderTests
     [DataRow("Name", SortOrderEnum.Descending)]
     public void TestOrderExpressionById(string name, SortOrderEnum sortOrder)
     {
-        var expressionById = OrderExpressionBuilder.CreateExpression(name);
+        var expressionById = OrderExpressionBuilder.Create(name);
         var queryable = Model.AsQueryable<OrderingBuilderTestModel>();
         var orderedById = new List<OrderingBuilderTestModel>();
 

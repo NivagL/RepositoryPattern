@@ -10,16 +10,16 @@ using System.Linq.Expressions;
 
 namespace Repository.Expressions
 {
-    public class QueryExpressionBuilder<TValue> : IQueryExpressionBuilder<TValue>
+    public class QueryExpression<TValue> : IQueryExpression<TValue>
     {
         private readonly IConfiguration Configuration;
-        private readonly ILogger<IQueryExpressionBuilder<TValue>> Logger;
+        private readonly ILogger<IQueryExpression<TValue>> Logger;
         public Type ExpressionType { get; private set; }
         public ParameterExpression ExpressionParam { get; private set; }
         public bool EfCoreLike { get; private set; }
 
-        public QueryExpressionBuilder(IConfiguration configuration, 
-            ILogger<IQueryExpressionBuilder<TValue>> logger, 
+        public QueryExpression(IConfiguration configuration, 
+            ILogger<IQueryExpression<TValue>> logger, 
             bool efCorelike = true)
         {
             Configuration = configuration;
@@ -40,7 +40,7 @@ namespace Repository.Expressions
         /// </summary>
         /// <param name="queryObjects"></param>
         /// <returns></returns>
-        public Expression<Func<TValue, bool>> CreateExpression(IEnumerable<QueryObject> queryObjects)
+        public Expression<Func<TValue, bool>> Create(IEnumerable<QueryObject> queryObjects)
         {
             Expression expression = null;
             foreach (var query in queryObjects)

@@ -45,17 +45,17 @@ public class Parent1
 public class QueryExpressionBuilderParentChildTest
 {
     private readonly IConfiguration Configuration;
-    private readonly ILogger<IQueryExpressionBuilder<Parent1>> Logger;
+    private readonly ILogger<IQueryExpression<Parent1>> Logger;
     public List<Parent1> Parents { get; private set; }
     public List<QueryObject> Query1 { get; private set; }
     public List<QueryObject> Query2 { get; private set; }
-    public IQueryExpressionBuilder<Parent1> Builder { get; private set; }
+    public IQueryExpression<Parent1> Builder { get; private set; }
 
     public QueryExpressionBuilderParentChildTest()
     {
         var dependencyBuilder = new UtilityBuilder();
         Configuration = dependencyBuilder.Configuration;
-        Logger = dependencyBuilder.Logger<IQueryExpressionBuilder<Parent1>>();
+        Logger = dependencyBuilder.Logger<IQueryExpression<Parent1>>();
     }
 
     [TestInitialize]
@@ -139,7 +139,7 @@ public class QueryExpressionBuilderParentChildTest
             },
         };
 
-        Builder = new QueryExpressionBuilder<Parent1>(Configuration, Logger);
+        Builder = new QueryExpression<Parent1>(Configuration, Logger);
     }
 
     [TestMethod]
@@ -147,7 +147,7 @@ public class QueryExpressionBuilderParentChildTest
     {
         var list = Parents.Where(x => x.Gender == GenderEnum.Female && x.Child.GrandChild.Age == 5);
 
-        var expression = Builder.CreateExpression(Query1);
+        var expression = Builder.Create(Query1);
         var testList = Parents.Where(expression.Compile());
 
         Assert.IsTrue(list.Count() == 1);
@@ -161,7 +161,7 @@ public class QueryExpressionBuilderParentChildTest
     [TestMethod]
     public void TestExpressionChildNameLike()
     {
-        var builder = new QueryExpressionBuilder<Parent1>(Configuration, Logger, false);
+        var builder = new QueryExpression<Parent1>(Configuration, Logger, false);
         var query = new List<QueryObject>()
         {
             new QueryObject()
@@ -172,7 +172,7 @@ public class QueryExpressionBuilderParentChildTest
             },
         };
 
-        var expression = builder.CreateExpression(query);
+        var expression = builder.Create(query);
         var test = Parents.Where(expression.Compile());
         var test1 = Parents.Where(x => x.Child.Name.Contains("Just"));
         Assert.IsTrue(test.Count() == test1.Count());

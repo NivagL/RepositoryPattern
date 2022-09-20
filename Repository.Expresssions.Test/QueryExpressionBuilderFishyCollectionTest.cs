@@ -38,14 +38,14 @@ public class QueryExpressionBuilderFishyCollectionTest
     public Expression<Func<Fish, bool>> LambdaFish { get; private set; }
 
     public IConfiguration Configuration { get; private set; }
-    public ILogger<IQueryExpressionBuilder<Catch>> Logger { get; private set; }
-    public IQueryExpressionBuilder<Catch> Builder { get; private set; }
+    public ILogger<IQueryExpression<Catch>> Logger { get; private set; }
+    public IQueryExpression<Catch> Builder { get; private set; }
 
     public QueryExpressionBuilderFishyCollectionTest()
     {
         var dependencyBuilder = new UtilityBuilder();
         Configuration = dependencyBuilder.Configuration;
-        Logger = dependencyBuilder.Logger<IQueryExpressionBuilder<Catch>>();
+        Logger = dependencyBuilder.Logger<IQueryExpression<Catch>>();
     }
 
 
@@ -119,7 +119,7 @@ public class QueryExpressionBuilderFishyCollectionTest
         var eqFish = Expression.Equal(leftFish, rightFish);
         LambdaFish = Expression.Lambda<Func<Fish, bool>>(eqFish, pFish);
 
-        Builder = new QueryExpressionBuilder<Catch>(Configuration, Logger);
+        Builder = new QueryExpression<Catch>(Configuration, Logger);
     }
 
     [TestMethod]
@@ -219,7 +219,7 @@ public class QueryExpressionBuilderFishyCollectionTest
                 },
             };
 
-        var expression = Builder.CreateExpression(queries);
+        var expression = Builder.Create(queries);
         var list = Catches.Where(expression.Compile());
     }
 
@@ -227,7 +227,7 @@ public class QueryExpressionBuilderFishyCollectionTest
     //TODO This needs foxing for like queries against children
     public void ExpressionFishyMainCourseChildrenViaBuilderLike()
     {
-        var builder = new QueryExpressionBuilder<Catch>(Configuration, Logger, false);
+        var builder = new QueryExpression<Catch>(Configuration, Logger, false);
         var queries = new List<QueryObject>()
         {
             new QueryObject()
@@ -244,7 +244,7 @@ public class QueryExpressionBuilderFishyCollectionTest
             },
         };
 
-        var expression = builder.CreateExpression(queries);
+        var expression = builder.Create(queries);
         var list = Catches.Where(expression.Compile());
         Assert.IsTrue(list.Any());  //This is broken
     }

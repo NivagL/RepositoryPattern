@@ -5,14 +5,14 @@ using System;
 
 namespace Repository.Expressions
 {
-    public class RepositoryExpressionsFactory<TValue> : IRepositoryExpressionsFactory<TValue>
+    public class ExpressionsFactory<TValue> : IExpressionsFactory<TValue>
     {
         private readonly IConfiguration Configuration;
-        private readonly ILogger<IRepositoryExpressionsFactory<TValue>> Logger;
-        public Func<IServiceProvider, IQueryExpressionBuilder<TValue>> QueryExpressionBuilder { get; set; }
-        public Func<IServiceProvider, IOrderExpressionBuilder<TValue>> OrderExpressionBuilder { get; set; }
+        private readonly ILogger<IExpressionsFactory<TValue>> Logger;
+        public Func<IServiceProvider, IQueryExpression<TValue>> QueryExpressionBuilder { get; set; }
+        public Func<IServiceProvider, IOrderExpression<TValue>> OrderExpressionBuilder { get; set; }
 
-        public RepositoryExpressionsFactory(IConfiguration configuration, ILogger<IRepositoryExpressionsFactory<TValue>> logger)
+        public ExpressionsFactory(IConfiguration configuration, ILogger<IExpressionsFactory<TValue>> logger)
         {
             Configuration = configuration;
             Logger = logger;
@@ -30,15 +30,15 @@ namespace Repository.Expressions
                 services.AddScoped(OrderExpressionBuilder);
         }
 
-        public virtual IQueryExpressionBuilder<TValue> QueryExpressionBuilderImpl(IServiceProvider serviceProvider)
+        public virtual IQueryExpression<TValue> QueryExpressionBuilderImpl(IServiceProvider serviceProvider)
         {
             try
             {
                 var configuration = serviceProvider.GetRequiredService<IConfiguration>();
                 var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-                var logger = loggerFactory.CreateLogger<IQueryExpressionBuilder<TValue>>();
+                var logger = loggerFactory.CreateLogger<IQueryExpression<TValue>>();
 
-                var instance = new QueryExpressionBuilder<TValue>(configuration, logger);
+                var instance = new QueryExpression<TValue>(configuration, logger);
                 return instance;
             }
             catch (Exception ex)
@@ -52,15 +52,15 @@ namespace Repository.Expressions
             }
         }
 
-        public virtual IOrderExpressionBuilder<TValue> OrderExpressionBuilderImpl(IServiceProvider serviceProvider)
+        public virtual IOrderExpression<TValue> OrderExpressionBuilderImpl(IServiceProvider serviceProvider)
         {
             try
             {
                 var configuration = serviceProvider.GetRequiredService<IConfiguration>();
                 var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-                var logger = loggerFactory.CreateLogger<IOrderExpressionBuilder<TValue>>();
+                var logger = loggerFactory.CreateLogger<IOrderExpression<TValue>>();
 
-                var instance = new OrderExpressionBuilder<TValue>(configuration, logger);
+                var instance = new OrderExpression<TValue>(configuration, logger);
                 return instance;
             }
             catch (Exception ex)

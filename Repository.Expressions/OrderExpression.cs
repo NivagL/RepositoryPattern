@@ -5,16 +5,16 @@ using System.Linq.Expressions;
 
 namespace Repository.Expressions
 {
-    public class OrderExpressionBuilder<TValue> : IOrderExpressionBuilder<TValue>
+    public class OrderExpression<TValue> : IOrderExpression<TValue>
     {
         private readonly IConfiguration Configuration;
-        private readonly ILogger<IOrderExpressionBuilder<TValue>> Logger;
+        private readonly ILogger<IOrderExpression<TValue>> Logger;
 
         public Type ExpressionType { get; private set; }
         public ParameterExpression ExpressionParam { get; private set; }
 
-        public OrderExpressionBuilder(IConfiguration configuration, 
-            ILogger<IOrderExpressionBuilder<TValue>> logger)
+        public OrderExpression(IConfiguration configuration, 
+            ILogger<IOrderExpression<TValue>> logger)
         {
             Configuration = configuration;
             Logger = logger;
@@ -22,7 +22,7 @@ namespace Repository.Expressions
             ExpressionParam = Expression.Parameter(ExpressionType, "t");
         }
 
-        public Expression<Func<TValue, object>> CreateExpression(string propertyNames, char propertyDelimeter = '|')
+        public Expression<Func<TValue, object>> Create(string propertyNames, char propertyDelimeter = '|')
         {
             if (string.IsNullOrWhiteSpace(propertyNames))
                 throw new Exception("Must provide a property name for the sort order");

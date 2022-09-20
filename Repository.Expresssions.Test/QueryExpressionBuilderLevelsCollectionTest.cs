@@ -33,21 +33,21 @@ public class Level4
 public class QueryExpressionBuilderLevelsCollectionTest
 {
     public IConfiguration Configuration { get; private set; }
-    public ILogger<IQueryExpressionBuilder<Level1>> Logger { get; private set; }
-    public IQueryExpressionBuilder<Level1> Builder { get; private set; }
+    public ILogger<IQueryExpression<Level1>> Logger { get; private set; }
+    public IQueryExpression<Level1> Builder { get; private set; }
     public List<Level1> Data { get; private set; }
 
     public QueryExpressionBuilderLevelsCollectionTest()
     {
         var dependencyBuilder = new UtilityBuilder();
         Configuration = dependencyBuilder.Configuration;
-        Logger = dependencyBuilder.Logger<IQueryExpressionBuilder<Level1>>();
+        Logger = dependencyBuilder.Logger<IQueryExpression<Level1>>();
     }
 
     [TestInitialize]
     public void SetUp()
     {
-        Builder = new QueryExpressionBuilder<Level1>(Configuration, Logger);
+        Builder = new QueryExpression<Level1>(Configuration, Logger);
         Data = new List<Level1>()
         {
             new Level1()
@@ -80,7 +80,7 @@ public class QueryExpressionBuilderLevelsCollectionTest
             }
         };
 
-        var exp = Builder.CreateExpression(query);
+        var exp = Builder.Create(query);
         var testList = Data.Where(exp.Compile());
 
         Assert.IsTrue(list.Count() == 1);

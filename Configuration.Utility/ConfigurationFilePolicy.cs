@@ -11,9 +11,11 @@ public class ConfigurationFilePolicy : IConfigurationFilePolicy
     {
         FilePolicy = filePolicy;
         Directory = AppDomain.CurrentDomain.BaseDirectory;
-        Environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        if (string.IsNullOrEmpty(Environment))
+        var environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        if (string.IsNullOrEmpty(environment))
             Environment = "Development";
+        else
+            Environment = environment;
     }
 
     private IEnumerable<string> CandidateFiles

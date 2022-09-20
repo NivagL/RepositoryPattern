@@ -9,8 +9,8 @@ namespace Repository.Expressions
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <returns>The expression</returns>
-    public interface IQueryExpressionBuilder<TValue>
+    public interface IQueryExpression<TValue>
     {
-        Expression<Func<TValue, bool>> CreateExpression(IEnumerable<QueryObject> queryObjects);
+        Expression<Func<TValue, bool>> Create(IEnumerable<QueryObject> queryObjects);
     }
 }

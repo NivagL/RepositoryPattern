@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Configuration.Utility\Configuration.Utility.csproj" />
+    <ProjectReference Include="..\Repository.Abstraction\Repository.Abstraction.csproj" />
     <ProjectReference Include="..\Repository.Expressions\Query.Expressions.csproj" />
   </ItemGroup>
 
