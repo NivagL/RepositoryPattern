@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repository.Serialiser\Model.Serialiser.csproj" />
     <ProjectReference Include="..\Test.Model\Test.Model.csproj" />
   </ItemGroup>
 

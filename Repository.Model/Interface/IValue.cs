@@ -1,4 +1,4 @@
-﻿using Model.Serialiser;
+﻿//using Model.Serialiser;
 
 namespace Model.Abstraction;
 
@@ -25,5 +25,5 @@ public interface IValue<TValue>
     /// <summary>
     /// Defines how to serialiser a value
     /// </summary>
-    ISerialiser<TValue> ValueSerialiser { get; }
+    //ISerialiser<TValue> ValueSerialiser { get; }
 }

@@ -1,4 +1,4 @@
-﻿using Model.Serialiser;
+﻿//using Model.Serialiser;
 
 namespace Model.Abstraction;
 
@@ -9,6 +9,6 @@ public class StringKeyModel<TValue> : DefaultKeyModel<string, TValue>
         KeysEqual = (x, y) => x == y;
         IsKeyTuple = false;
         NewKey = () => Guid.NewGuid().ToString();
-        KeySerialiser = new StringSerialiser();
+        //KeySerialiser = new StringSerialiser();
     }
 }

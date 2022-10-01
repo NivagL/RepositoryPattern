@@ -1,4 +1,4 @@
-﻿using Model.Serialiser;
+﻿//using Model.Serialiser;
 
 namespace Model.Abstraction;
 
@@ -37,5 +37,5 @@ public interface IKey<TKey, TValue>
     /// <summary>
     /// Defines how to serialiser a key
     /// </summary>
-    ISerialiser<TKey> KeySerialiser { get; }
+    //ISerialiser<TKey> KeySerialiser { get; }
 }

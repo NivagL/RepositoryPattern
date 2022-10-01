@@ -1,4 +1,4 @@
-﻿using Model.Serialiser;
+﻿//using Model.Serialiser;
 
 namespace Model.Abstraction;
 
@@ -12,7 +12,7 @@ public class DefaultKeyModel<TKey, TValue>
     public Func<TValue, TKey> GetKey { get; set; }
     public Action<TValue, TKey> SetKey { get; set; }
     public Func<TKey, TKey, bool> KeysEqual { get; set; }
-    public ISerialiser<TKey> KeySerialiser { get; set; }
+    //public ISerialiser<TKey> KeySerialiser { get; set; }
 
     public DefaultKeyModel()
     {
@@ -20,7 +20,7 @@ public class DefaultKeyModel<TKey, TValue>
         NewKey = CreateImpl<TKey>;
         IsKeyTuple = TupleUtils.IsTuple(typeof(TKey));
         KeysEqual = KeysEqualImpl;
-        KeySerialiser = new DefaultSerialiser<TKey>();
+        //KeySerialiser = new DefaultSerialiser<TKey>();
     }
 
     public bool KeysEqualImpl(TKey x, TKey y)

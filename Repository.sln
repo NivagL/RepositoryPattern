@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.Repository.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Abstraction", "Repository.Model\Model.Abstraction.csproj", "{9C6774D1-F864-48C8-B6C7-91F24B60948B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Serialiser", "Repository.Serialiser\Model.Serialiser.csproj", "{868C92E8-D184-449B-A3B7-899589E217C4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration.Utility", "Configuration.Utility\Configuration.Utility.csproj", "{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Serialiser.Test", "Model.Serialiser.Test\Model.Serialiser.Test.csproj", "{B4C8964F-A0C6-4691-B87E-AC1BF4783C34}"
@@ -55,10 +53,6 @@ Global
 		{9C6774D1-F864-48C8-B6C7-91F24B60948B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C6774D1-F864-48C8-B6C7-91F24B60948B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C6774D1-F864-48C8-B6C7-91F24B60948B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{868C92E8-D184-449B-A3B7-899589E217C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{868C92E8-D184-449B-A3B7-899589E217C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{868C92E8-D184-449B-A3B7-899589E217C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{868C92E8-D184-449B-A3B7-899589E217C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D91ED7F3-F587-4E47-8EE3-FA5587E8C92E}.Release|Any CPU.ActiveCfg = Release|Any CPU

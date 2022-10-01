@@ -1,4 +1,4 @@
-﻿using Model.Serialiser;
+﻿//using Model.Serialiser;
 
 namespace Model.Abstraction;
 
@@ -9,14 +9,14 @@ public class DefaultValueModel<TValue> : IValueModel<TValue>
     public Func<TValue, TValue, bool> ValuesEqual { get; set; }
     public Action<TValue, TValue> Assign { get; set; }
     public Func<TValue, TValue, bool> Differ { get; set; }
-    public ISerialiser<TValue> ValueSerialiser { get; set; }
+    //public ISerialiser<TValue> ValueSerialiser { get; set; }
 
     public DefaultValueModel()
     {
         ValueTypeName = typeof(TValue).Name;
         CreateValue = CreateImpl<TValue>;
         ValuesEqual = DefaultEqual<TValue>;
-        ValueSerialiser = new DefaultSerialiser<TValue>();
+        //ValueSerialiser = new DefaultSerialiser<TValue>();
     }
 
     public T CreateImpl<T>()

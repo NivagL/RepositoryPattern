@@ -1,4 +1,4 @@
-﻿using Model.Serialiser;
+﻿//using Model.Serialiser;
 
 namespace Model.Abstraction;
 
@@ -11,6 +11,6 @@ public class IntKeyModel<TValue> : DefaultKeyModel<int, TValue>
         KeysEqual = (x, y) => x == y;
         IsKeyTuple = false;
         NewKey = () => ++KeyCounter;
-        KeySerialiser = new IntSerialiser();
+        //KeySerialiser = new IntSerialiser();
     }
 }
